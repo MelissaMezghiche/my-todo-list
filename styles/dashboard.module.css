@@ -1,0 +1,197 @@
+
+.dashbody{
+    /*background-color: rgba(0, 255, 255, 0.24);*/
+    height: 85.5vh;
+    display: flex;
+    gap: 20px;
+}
+.dashright{
+    /*background-color: rgba(240, 248, 255, 0.514);*/
+    width: 70%;
+    height: 85.5vh;
+    display: block;
+    padding: 2vh;
+}
+
+.dashchart{
+    background-color:white;
+    width: 100%;
+    height: 33vh;
+    margin:auto;
+    border-radius: 20px;
+    padding: 5px;
+    margin-bottom: 4vh;
+}
+
+.dashchart h2{
+    margin-inline-start: 10px;
+}
+
+
+.dashcategory{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    column-gap: 40px;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+
+.dashright h2{
+    margin-bottom: 10px;
+}
+.dashwork, .dashpersonal{
+    background-color: #ABCDBB;
+    width: 30%;
+    height: 10vh;
+    border-radius: 15px;
+    padding: 10px;
+    
+}
+
+.taskshead{
+    margin-top: -2vh;
+    color:var(--green-light-white-lightmode);
+}
+
+.todaystasks {
+  height: 26vh; 
+  overflow-y: auto; 
+  padding: 16px;
+  background-color: #f8f9fa; 
+  border-radius: 8px;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .dashright  .todaystasks::-webkit-scrollbar {
+    width: 6px; /* Largeur de la barre */
+}
+  
+.duedate {
+    margin-left: auto; 
+    background-color: rgba(123, 184, 123, 0.616);
+    border-radius: 8px;
+    color: black;
+    padding-inline: 5px;
+  }
+  
+
+.task h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #343a40;
+
+}
+
+.task p {
+  font-size: 14px;
+  color: black;
+  margin: 0;
+}
+
+
+.task:hover {
+  background-color: #fff;
+}
+
+
+
+
+
+.dashright h2{
+    font-size: 18px;
+}
+
+
+
+
+
+.dashleft{
+    width: 30%;
+    height:85.5vh;
+    display: block;
+    padding-inline: 10px;
+}
+
+
+
+.dashleft .calendarside h3{
+    margin-inline-start: 10px;
+    margin-top: 10px;
+    font-weight: 100;
+}
+.dashleft .upcomingside {
+    background: linear-gradient(400deg, 
+        #bfd9cb 20%, 
+        rgb(224, 237, 230) 60%, 
+        rgb(221, 235, 228) 100%);
+    width: 100%;
+    height: 12.5vh; 
+    border-radius: 20px;
+    margin-top: 2vh;
+    padding-inline: 15px; 
+    padding-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+.dashleft .upcomingside p {
+    font-weight: 600; 
+    color: #333; 
+}
+
+.dashleft .upcomingside .scrollable {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    scrollbar-width: thin; 
+    scrollbar-color: #bbb #f0f0f0;
+    margin-inline-start: 10px;
+    margin-top: -10px;
+}
+
+.dashleft .upcomingside .scrollable::-webkit-scrollbar {
+    width: 6px; /* Largeur de la barre */
+}
+
+.dashleft .upcomingside .scrollable::-webkit-scrollbar-thumb {
+    background-color: #bbb; 
+    border-radius: 3px; 
+}
+
+.dashleft .upcomingside .scrollable::-webkit-scrollbar-track {
+    background: #f0f0f0; 
+    border-radius: 3px;
+}
+
+.dashleft .upcomingside .scrollable div {
+    line-height: 1.6; 
+    font-size: 14px; 
+    color: #555; 
+}
+
+
+.sidetasks div{
+    line-height: 1.6; 
+    font-size: 14px; 
+    color: #555; 
+    
+}
+
+ .dashleft .calendarside p,
+.upcomingside p,
+ .pendingside p,
+ .completedside p {
+    padding: 10px;
+    font-weight: 500;
+}
+
+
