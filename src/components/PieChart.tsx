@@ -20,5 +20,5 @@ const PieChart = () => {
 
   return <Pie data={data} />;
 };
-
+{/* trying somethingg !!!!!*/}
 export default PieChart;
