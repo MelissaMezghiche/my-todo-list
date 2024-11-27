@@ -1,75 +1,83 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useFetchTasks } from '../hooks/useFetchTasks'; 
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+const TaskStatsChart = () => {
+  const { pendingTasks, /*progressTasks,*/ completedTasks } = useFetchTasks(); 
+  const [chartData, setChartData] = useState<any[]>([]);
 
-export default class Example extends PureComponent {
+  // Fonction pour formater la date sans l'heure
+  const formatDate = (date: string) => {
+    const taskDate = new Date(date);
+    return taskDate.toISOString().slice(0, 10); 
+  };
 
+  // Fonction pour obtenir la date du premier jour de la semaine (lundi)
+  const getStartOfWeek = (date: Date) => {
+    const day = date.getDay() || 7; // Si dimanche, retourner 7 au lieu de 0
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() - day + 1); // Ajuste la date pour revenir au lundi de la semaine
+    return date;
+  };
 
-  render() {
-    return (
-      <ResponsiveContainer width="100%" height="85%">
-        <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <XAxis dataKey="name" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
-      </ResponsiveContainer>
-    );
-  }
-}
+  const getWeekDates = () => {
+    const weekDates: string[] = [];
+    const today = new Date();
+    const startOfWeek = getStartOfWeek(new Date(today));
+    
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startOfWeek);
+      day.setDate(day.getDate() + i); // Ajoute un jour à la date de départ
+      weekDates.push(formatDate(day.toISOString())); // Ajoute chaque date au tableau 
+    }
+    return weekDates;
+  };
+
+  // Calculer les statis des tâches par jour 
+  useEffect(() => {
+    const weekDates = getWeekDates(); // Récupère les dates de la semaine actuelle (lundi-dimanche)
+    const calculateStats = () => {
+      const stats = weekDates.map((day) => {
+        const pendingStats = pendingTasks.filter(task => formatDate(task.dueDate) === day).length;
+        //const progressStats = progressTasks.filter(task => formatDate(task.dueDate) === day).length;
+        const completedStats = completedTasks.filter(task => formatDate(task.dueDate) === day).length;
+
+        return {
+          day, // Jour de semaine (ex : "2024-11-27")
+          pending: pendingStats,
+          //inProgress: progressStats,
+          completed: completedStats,
+        };
+      });
+
+      setChartData(stats); // MAJ
+    };
+
+    calculateStats();
+  }, [pendingTasks, /*progressTasks,*/ completedTasks]);
+
+  return (
+    <ResponsiveContainer width="100%" height="85%">
+      <LineChart
+        width={500}
+        height={300}
+        data={chartData}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <XAxis dataKey="day" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="pending" stroke="var( --chart-pending)" activeDot={{ r: 8 } } strokeWidth={3}/>
+        <Line type="monotone" dataKey="completed" stroke="var( --chart-complete)"  strokeWidth={3}/>
+      </LineChart>
+    </ResponsiveContainer>
+  );
+};
+
+export default TaskStatsChart;

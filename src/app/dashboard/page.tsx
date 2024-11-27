@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -11,16 +10,8 @@ import styles from '/styles/dashboard.module.css';
 import theme from '../../../styles/theme';
 import { useFetchTasks } from '../../hooks/useFetchTasks';
 
-
-
-
 export default function Dashboard() {
-
-  
-  const { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories } = useFetchTasks(); // hooks directory
-
-
-
+  const { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories } = useFetchTasks();
 
   return (
     <ThemeProvider theme={theme}>
@@ -33,32 +24,47 @@ export default function Dashboard() {
 
           <h2 className={styles.taskshead}>Categories</h2>
           <div className={styles.dashcategory}>
-      
             {categories.map(category => (
               <div className={styles.dashwork} key={category.id}>
                 <h4>{category.name}</h4>
               </div>
             ))}
-            
           </div>
 
           <h2 className={styles.taskshead}>Today's Tasks</h2>
           <div className={styles.todaystasks}>
             {todaysTasks.length > 0 ? (
-              todaysTasks.map(task => (
-                <div key={task.id} className={styles.task}>
-                  <h3>{task.title}</h3>
-                  <p className={styles.catname}> {task.category.name}</p>
-                  <p className={styles.priolevel}> {task.priority.level}</p>
-                  <p className={styles.duedate}>
-                  {new Date(task.dueDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </p>
-                </div>
-              ))
+              <table className={styles.tasksTable}>
+                <tbody>
+                  {todaysTasks.map(task => (
+                    <tr key={task.id}>
+                      <td>{task.title}</td>
+                      <td>
+                        {new Date(task.dueDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </td>
+                      <td>{task.category.name}</td>
+                      <td>
+                        <p 
+                          className={styles.priolevel}  
+                          style={{ 
+                            backgroundColor: task.priority.color, 
+                            borderRadius: '8px',
+                            paddingInline: '5px',
+                          }}
+                        >
+                          {task.priority.level}
+                        </p>
+                      </td>
+                      
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
               <p>No pending tasks for today.</p>
             )}
-          </div>
+          </div> 
+
         </div>
 
         <div className={styles.dashleft}>
@@ -67,7 +73,6 @@ export default function Dashboard() {
               <DateCalendar />
             </LocalizationProvider>
           </div>
-
 
           <div className={styles.upcomingside}>
             <p className={styles.leftTitles}>À VENIR</p>
@@ -88,23 +93,21 @@ export default function Dashboard() {
             <p className={styles.leftTitles}>EN COURS</p>
             <div className={styles.scrollable}>
               {progressTasks.length > 0 ? (
-                  progressTasks.map(task => (
-                    <div key={task.id} className={styles.sidetasks}>
-                      <div>{task.title}</div>
-                    </div>
-                  ))
-                ) : (
+                progressTasks.map(task => (
+                  <div key={task.id} className={styles.sidetasks}>
+                    <div>{task.title}</div>
+                  </div>
+                ))
+              ) : (
                 <p>No in-progress tasks.</p>
               )}
             </div>
           </div>
 
-         
-
           <div className={styles.upcomingside}>
             <p className={styles.leftTitles}>EFFECTUEES</p>
             <div className={styles.scrollable}>
-             {completedTasks.length > 0 ? (
+              {completedTasks.length > 0 ? (
                 completedTasks.map(task => (
                   <div key={task.id} className={styles.sidetasks}>
                     <div>{task.title}</div>
