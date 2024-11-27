@@ -10,12 +10,20 @@ interface Task {
   priority: 1 | 2 | 3;
 }
 
+interface Category {
+    id: number;
+    name: string;
+}
+
 export function useFetchTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pendingTasks, setPendingTasks] = useState<Task[]>([]);
   const [progressTasks, setProgressTasks] = useState<Task[]>([]);
   const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
   const [todaysTasks, setTodaysTasks] = useState<Task[]>([]);
+
+  // Categories sets
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     // Fonction pour formater la date actuelle sans l'heure
@@ -71,8 +79,26 @@ export function useFetchTasks() {
       }
     };
 
-    fetchTasks();
+
+     // Fonction pour fetch les catégories
+     const fetchCategories = async () => {
+        try {
+          const response = await fetch('/api/categories');  // Assurez-vous que l'API pour les catégories existe
+          if (response.ok) {
+            const data: Category[] = await response.json();
+            setCategories(data);  // Mettre à jour l'état des catégories
+          } else {
+            console.error('Error fetching categories:', response.status);
+          }
+        } catch (error) {
+          console.error('Error connecting to API:', error);
+        }
+      };
+  
+      // Appeler les deux fonctions pour récupérer les tâches et les catégories
+      fetchTasks();
+      fetchCategories();
   }, []);
 
-  return { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks };
+  return { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories };
 }

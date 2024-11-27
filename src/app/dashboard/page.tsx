@@ -17,7 +17,7 @@ import { useFetchTasks } from '../../hooks/useFetchTasks';
 export default function Dashboard() {
 
   
-  const { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks } = useFetchTasks(); // hooks directory
+  const { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories } = useFetchTasks(); // hooks directory
 
 
 
@@ -33,12 +33,13 @@ export default function Dashboard() {
 
           <h2 className={styles.taskshead}>Categories</h2>
           <div className={styles.dashcategory}>
-            <div className={styles.dashwork}>
-              <h3>Work</h3>
-            </div>
-            <div className={styles.dashpersonal}>
-              <h3>Personal</h3>
-            </div>
+      
+            {categories.map(category => (
+              <div className={styles.dashwork} key={category.id}>
+                <h4>{category.name}</h4>
+              </div>
+            ))}
+            
           </div>
 
           <h2 className={styles.taskshead}>Today's Tasks</h2>
@@ -47,8 +48,8 @@ export default function Dashboard() {
               todaysTasks.map(task => (
                 <div key={task.id} className={styles.task}>
                   <h3>{task.title}</h3>
-                  <p> {task.category.name}</p>
-                  <p> {task.priority.level}</p>
+                  <p className={styles.catname}> {task.category.name}</p>
+                  <p className={styles.priolevel}> {task.priority.level}</p>
                   <p className={styles.duedate}>
                   {new Date(task.dueDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
