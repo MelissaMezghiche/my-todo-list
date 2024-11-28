@@ -6,7 +6,7 @@ const theme = createTheme({
     MuiDateCalendar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#fff',  // Fond du calendrier
+          backgroundColor: 'var(--sidebar-bg-color);',  // Fond du calendrier
           borderRadius: '20px', // Bordures arrondies
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Ombre portée
           padding: '0px', // Espacement interne
