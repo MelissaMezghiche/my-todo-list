@@ -1,0 +1,49 @@
+
+/* Container for the calendar */
+.fc {
+    max-height: 80vh; /* Set a maximum height, you can adjust this value */
+    overflow-y: auto; /* Enable scrolling when content exceeds max-height */
+}
+  
+  /* Optional: If you want the calendar to take up less space on smaller screens, you can use media queries */
+@media (max-width: 768px) {
+  .fc {
+    max-height: 60vh; /* Adjust for smaller screens */
+  }
+}
+  
+.fc .fc-toolbar-title{
+    color: var(--green-dark-white-lightmode);
+}
+.fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number{
+    color: var(--black-in-lightmode-white-in-darkmode);
+}
+.fc-button-primary{
+    background-color: var(--green-bgcolor-light) !important;
+}
+.fc-button-primary:hover{
+    background-color: #0F3028 !important;
+    transition: all 0.5s ease;
+}
+.fc-col-header-cell-cushion{
+    color: var(--color-yellow) !important;
+}
+
+
+/* Add to your CSS file */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+
+

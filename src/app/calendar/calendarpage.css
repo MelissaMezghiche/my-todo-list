@@ -1,0 +1,26 @@
+.main-content{
+    padding: 20px 20px 20px 0px;
+    display: flex;
+    gap: 20px;
+}
+.bigCalendar{
+   width: 70%;
+   height: fit-content;
+   padding: 20px;
+   border-radius: 20px;
+   background-color: var(--elements-bg-color);
+   box-shadow: var(--box-shadow);
+}
+
+.Day{
+    width: 30%;
+    padding: 20px;
+    border-radius: 20px;
+    height: fit-content;
+    box-shadow: var(--box-shadow);
+    background: linear-gradient(90deg, rgba(107, 184, 168, 0.384) 0%, #e7edeb 100%);
+}
+.Day h2{
+    margin-bottom: 20px;
+}
+
