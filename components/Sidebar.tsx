@@ -18,14 +18,17 @@ const Sidebar = () => {
   return (
     <>
       <div className={`${styles.sidebar} ${isOpen ? '' : styles.closed}`}>
-
         {/* Icone d'ouverture/fermeture */}
-        <div className={`${styles.toggleIcon} ${isOpen ? styles.open : styles.closed}`} onClick={toggleSidebar}>
+        <div 
+          className={`${styles.toggleIcon} ${isOpen ? styles.open : styles.closed}`} 
+          onClick={toggleSidebar} 
+          aria-label="Toggle sidebar"
+        >
           {isOpen ? <BsArrowBarLeft /> : <BsArrowBarRight />}
         </div>
 
-          {/* Section Profil */}
-          <div className={styles.profile}>
+        {/* Section Profil */}
+        <div className={styles.profile}>
           <img 
             src="/images/pfp-cloud.jpg" 
             alt="Profile" 
@@ -35,7 +38,7 @@ const Sidebar = () => {
         </div>
 
         {/* Liens de navigation */}
-        <div className={styles.navLinks}>
+        <div className={`${styles.navLinks} ${isOpen ? '' : styles.closed}`}>
           <Link href="/dashboard" className={styles.navLink}>
             <MdOutlineDashboard className={styles.icon} />
             {isOpen && <span>Dashboard</span>}
@@ -58,9 +61,9 @@ const Sidebar = () => {
         </div>
 
         {/* Lien de déconnexion */}
-        <div className={styles.logout}>
+          <div className={styles.logout}>
           <Link href="/logout" className={styles.navLink}>
-            <TbLogout2 className={styles.icon} />
+            <TbLogout2 className={`${styles.icon} ${styles.logoutIcon}`} />
             {isOpen && <span>Logout</span>}
           </Link>
         </div>
