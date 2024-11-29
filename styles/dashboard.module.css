@@ -4,7 +4,7 @@
     display: flex;
     gap: 20px;
 }
-.dashright{
+.dashleft{
     width: 70%;
     height: 85.5vh;
     display: block;
@@ -36,7 +36,7 @@
     justify-content: center;
 }
 
-.dashright h2{
+.dashleft h2{
     margin-bottom: 10px;
     color: var(--green-light-white-lightmode);
 }
@@ -90,7 +90,7 @@
     color:var(--green-light-white-lightmode);
 }
 
-.dashright  .todaystasks::-webkit-scrollbar {
+.dashleft  .todaystasks::-webkit-scrollbar {
     width: 2px; /* Largeur de la barre */
 }
 
@@ -103,7 +103,7 @@
 }
 
 
-.dashright h2{
+.dashleft h2{
   font-size: 18px;
 }
 
@@ -151,8 +151,8 @@
   }
   
   
-/********************LEFT SIDE*******************/
-.dashleft{
+/********************RIGHT SIDE*******************/
+.dashright{
     width: 30%;
     height:85.5vh;
     display: block;
@@ -161,12 +161,12 @@
 
 
 
-.dashleft .calendarside h3{
+.dashright .calendarside h3{
     margin-inline-start: 10px;
     margin-top: 10px;
     font-weight: 100;
 }
-.dashleft .upcomingside {
+.dashright .upcomingside {
     background: linear-gradient(120deg, 
     var( --gradiant-color-darker) 0%, 
     var( --gradiant-color-dark) 50%, 
@@ -185,15 +185,15 @@
 }
 
 
-.dashleft .upcomingside .leftTitles{
+.dashright .upcomingside .leftTitles{
     color: var(--color-category-yellow);
 }
-.dashleft .upcomingside p {
+.dashright .upcomingside p {
     font-weight: 600; 
     color: #333; 
 }
 
-.dashleft .upcomingside .scrollable {
+.dashright .upcomingside .scrollable {
     flex-grow: 1; 
     overflow-y: auto; 
     scrollbar-width: thin; 
@@ -202,42 +202,42 @@
     margin-top: -10px;
 }
 
-.dashleft .upcomingside .scrollable::-webkit-scrollbar {
+.dashright .upcomingside .scrollable::-webkit-scrollbar {
     width: 6px; /* Largeur de la barre */
 }
 
-.dashleft .upcomingside .scrollable::-webkit-scrollbar-thumb {
+.dashright .upcomingside .scrollable::-webkit-scrollbar-thumb {
     background-color: #bbb; 
     border-radius: 3px; 
 }
 
-.dashleft .upcomingside .scrollable::-webkit-scrollbar-track {
+.dashright .upcomingside .scrollable::-webkit-scrollbar-track {
     background: #f0f0f0; 
     border-radius: 3px;
 }
 
-.dashleft .upcomingside .scrollable div {
+.dashright .upcomingside .scrollable div {
     line-height: 1.6; 
     font-size: 14px; 
     color: #555; 
 }
 
-.dashleft .upcomingside .dashstatus{
+.dashright .upcomingside .dashstatus{
   padding:1px ;
   margin-bottom: 2px;
   border-radius: 3px;
   display: flex;
 }
-.dashleft .upcomingside .dashstatus .statustitle{
+.dashright .upcomingside .dashstatus .statustitle{
   font-size: 16px;
   color: var(--dash-status-title);
 }
-.dashleft .upcomingside .dashstatus .statuscategory{
+.dashright .upcomingside .dashstatus .statuscategory{
   margin-left: auto;
   color: var(--dash-status-colors);
 }
 
-.dashleft .upcomingside .dashstatus:hover{
+.dashright .upcomingside .dashstatus:hover{
   background-color: var(--gradiant-color-dark);
   transition: 0.5s;
 }
@@ -250,7 +250,7 @@
     
 }
 
- .dashleft .calendarside p,
+ .dashright .calendarside p,
 .upcomingside p,
  .pendingside p,
  .completedside p {
@@ -265,14 +265,14 @@
     display: flex;
     gap: 5px;
 }
-.dashright{
+.dashleft{
   width: 60%;
   height: 85.5vh;
   display: block;
   padding: 2vh;
 }
 
-.dashleft{
+.dashright{
   width: 40%;
   height:85.5vh;
   display: block;
@@ -305,14 +305,14 @@
     display: block;
     gap: 20px;
 }
-.dashright{
+.dashleft{
     width: 100%;
     height: 85.5vh;
     display: block;
     padding: 2vh;
 }
 
-.dashleft{
+.dashright{
   width: 100%;
   height:85.5vh;
   display: block;

@@ -18,7 +18,7 @@ export default function Dashboard() {
   return (
     <ThemeProvider theme={theme}>
       <main className={styles.dashbody}>
-        <div className={styles.dashright}>
+        <div className={styles.dashleft}>
           <div className={styles.dashchart}>
             <h2>Dashboard</h2>
             <LineChart /> {/* C'est un BarChart, j'ai pas changer le nom de la fonc*/}
@@ -87,7 +87,7 @@ export default function Dashboard() {
 
         </div>
 
-        <div className={styles.dashleft}>
+        <div className={styles.dashright}>
           <div className={styles.calendarside}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar />
@@ -95,7 +95,7 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.upcomingside}>
-            <p className={styles.leftTitles}>À VENIR</p>
+            <p className={styles.rightTitles}>À VENIR</p>
             <div className={styles.scrollable}>
               {pendingTasks.length > 0 ? (
                 pendingTasks.map(task => (
@@ -113,7 +113,7 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.upcomingside}>
-            <p className={styles.leftTitles}>EN COURS</p>
+            <p className={styles.rightTitles}>EN COURS</p>
             <div className={styles.scrollable}>
               {progressTasks.length > 0 ? (
                 progressTasks.map(task => (
@@ -131,7 +131,7 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.upcomingside}>
-            <p className={styles.leftTitles}>EFFECTUEES</p>
+            <p className={styles.rightTitles}>EFFECTUEES</p>
             <div className={styles.scrollable}>
               {completedTasks.length > 0 ? (
                 completedTasks.map(task => (
