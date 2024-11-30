@@ -102,9 +102,9 @@
 
 /* Transition pour le texte lorsqu'il disparaît */
 .sidebar.closed .navLink span {
-  opacity: 0;
+ opacity: 0;
   transform: translateX(-20px); /* Déplacement du texte vers la gauche */
-  pointer-events: none;
+  pointer-events: none; 
 }
 
 .icon {

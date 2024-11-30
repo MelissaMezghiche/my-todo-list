@@ -4,21 +4,38 @@
     margin-bottom: 10px;   
 }
 .Task-info{
-    padding-block: 5px;
+    padding-block: 10px;
+    background-color: #abcdbb1d;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
-    margin-block: 5px;
+    margin-block: 10px;
     display: flex;
     justify-content: space-between;
     padding-inline: 5px;
     border-radius: 5px;
 }
+
+.noTasks-case{
+    color: var(--color-black-white);
+}
+
 .check-task-name{
-    font-size: smaller;
-    color: black !important;
+    font-weight: 400;
+    color: var(--green-dark-white-lightmode);
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
+@media(max-width: 1100px) {
+  .Task-info{
+    overflow-y: auto;
+  }
+  .Task-info::-webkit-scrollbar{
+    width: 0px;
+  }
+  /*i need to make the text smaller*/
+}
+
 .cat-time{
     font-size: 12px;
     font-weight: 600;
@@ -27,6 +44,9 @@
 }
 .cat-time .cat{
     padding-bottom: 0px;
+}
+.time{
+    color: var(--color-black-white);
 }
 
 
@@ -69,4 +89,61 @@ input[type="checkbox"]:checked + label::before {
 input[type="checkbox"] + label:hover {
     border-color: #818181;
 }
+
+
+
+
+
+
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: -300px; /* Start outside the viewport */
+    background-color: #437A6F; /* Green for success */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slide-in 0.5s forwards, slide-out 0.5s 9.5s forwards;
+    opacity: 0;
+  }
+  
+  .notification .close-notif {
+    font-size: 18px;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  
+  /* Slide-in and slide-out animations */
+  @keyframes slide-in {
+    from {
+      right: -300px; /* Start outside the viewport */
+      opacity: 0;
+    }
+    to {
+      right: 20px; /* End position */
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-out {
+    from {
+      right: 20px;
+      opacity: 1;
+    }
+    to {
+      right: -300px;
+      opacity: 0;
+    }
+  }
+  
+
+
   

@@ -33,9 +33,9 @@ export default function CalendarPage() {
   useEffect(() => {
     if (selectedDate) {
       const filteredTasks = allTasks.filter((task) => {
-        const taskStartDate = new Date(task.startDate).toISOString().split('T')[0];
+        const taskDueDate = new Date(task.dueDate).toISOString().split('T')[0];
         const selectedDateISO = new Date(selectedDate).toISOString().split('T')[0];
-        return taskStartDate === selectedDateISO;
+        return taskDueDate === selectedDateISO;
       });
       setTasksForSelectedDate(filteredTasks);
     }

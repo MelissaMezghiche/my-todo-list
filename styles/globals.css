@@ -3,8 +3,9 @@
   --bg-color:#F8FAFB;
   --elements-bg-color: #ffffff;
   --sidebar-bg-color: #ffffff;
+  --color-black-white: #000000;
   --green-dark-white-lightmode: #0F3028;
-  --green-bgcolor-light: #437A6F;
+  --green-color-lightmode-lightgreen-darkmode: #437A6F;
   --green-light-white-lightmode: #437A6F;
   --green-color-superlight: #ABCDBB;
   --color-yellow: #FDB700;
@@ -21,6 +22,7 @@
   --gradiant-color-lighter:  #f2f2f2;
   --chart-pending: #FDB700;
   --chart-complete:#437A6F;
+  --border-color-full-calendar:1px solid rgb(227, 227, 227);
 
 }
 
@@ -28,6 +30,8 @@
   --bg-color:#011313;
   --elements-bg-color: #042222;
   --sidebar-bg-color: #06302C;
+  --color-black-white: #ffffff;
+  --green-color-lightmode-lightgreen-darkmode: #ABCDBB;
   --green-dark-white-lightmode: #ffffff;
   --green-light-white-lightmode: #ffffff;
   --green-color-superlight: #ABCDBB;
@@ -43,6 +47,7 @@
   --gradiant-color-lighter:  #c2ccca;
   --chart-pending: #FDB700;
   --chart-complete: #d8d8d8;
+  --border-color-full-calendar: 1px solid rgba(227, 227, 227, 0.371);
 }
 
 
