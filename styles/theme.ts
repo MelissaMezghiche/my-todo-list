@@ -12,7 +12,8 @@ const theme = createTheme({
           padding: '0px', // Espacement interne
           width: '100%',
           height: '40vh',
-          marginTop: '2vh'
+          marginTop: '2vh',
+          color:'var(--black-in-lightmode-white-in-darkmode)'
         },
         header: {
           backgroundColor: '#1976d2', // Couleur de fond de l'en-tête

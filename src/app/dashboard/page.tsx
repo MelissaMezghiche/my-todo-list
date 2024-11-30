@@ -9,26 +9,47 @@ import LineChart from '../../components/LineChart';
 import styles from '/styles/dashboard.module.css';
 import theme from '../../../styles/theme';
 import { useFetchTasks } from '../../hooks/useFetchTasks';
+import Link from 'next/link';
+import './dashcalendar.css';
 
 export default function Dashboard() {
-  const { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories } = useFetchTasks();
+  const { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories, countTasksByCategory } = useFetchTasks();
 
   return (
     <ThemeProvider theme={theme}>
       <main className={styles.dashbody}>
-        <div className={styles.dashright}>
+        <div className={styles.dashleft}>
           <div className={styles.dashchart}>
             <h2>Dashboard</h2>
-            <LineChart />
+            <LineChart /> {/* C'est un BarChart, j'ai pas changer le nom de la fonc*/}
           </div>
 
           <h2 className={styles.taskshead}>Categories</h2>
           <div className={styles.dashcategory}>
-            {categories.map(category => (
-              <div className={styles.dashwork} key={category.id}>
-                <h4>{category.name}</h4>
-              </div>
-            ))}
+            {categories.map(category => {
+              const { pendingCount, progressCount, completedCount } = countTasksByCategory(category.id);
+              return (
+                <div className={styles.dashwork} key={category.id}>
+                  <Link href={`/calendar`} className={styles.categoryLink}>
+                    {category.name}
+                  </Link>
+                  <div className={styles.categorystats}>
+                    <div className={styles.nbrstats}>
+                      <p>Pending</p> 
+                      <p className={styles.count}>{`${pendingCount}`}</p>
+                      </div>
+                    <div  className={styles.nbrstats}>
+                      <p>Progress</p>
+                      <p className={styles.count}>{`${progressCount}`}</p>
+                    </div>
+                    <div className={styles.nbrstats}>
+                      <p>Completed</p>
+                      <p className={styles.count}>{`${completedCount}`}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           <h2 className={styles.taskshead}>Today's Tasks</h2>
@@ -38,11 +59,11 @@ export default function Dashboard() {
                 <tbody>
                   {todaysTasks.map(task => (
                     <tr key={task.id}>
-                      <td>{task.title}</td>
-                      <td>
+                      <td className={styles.tasktitle}>{task.title}</td>
+                      <td className={styles.duedate}>
                         {new Date(task.dueDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </td>
-                      <td>{task.category.name}</td>
+                      <td  className={styles.catname}>{task.category.name}</td>
                       <td>
                         <p 
                           className={styles.priolevel}  
@@ -55,7 +76,6 @@ export default function Dashboard() {
                           {task.priority.level}
                         </p>
                       </td>
-                      
                     </tr>
                   ))}
                 </tbody>
@@ -67,7 +87,7 @@ export default function Dashboard() {
 
         </div>
 
-        <div className={styles.dashleft}>
+        <div className={styles.dashright}>
           <div className={styles.calendarside}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateCalendar />
@@ -75,12 +95,15 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.upcomingside}>
-            <p className={styles.leftTitles}>À VENIR</p>
+            <p className={styles.rightTitles}>À VENIR</p>
             <div className={styles.scrollable}>
               {pendingTasks.length > 0 ? (
                 pendingTasks.map(task => (
                   <div key={task.id} className={styles.sidetasks}>
-                    <div>{task.title}</div>
+                    <div className={styles.dashstatus}>
+                      <p className={styles.statustitle}>{task.title}</p>
+                      <p className={styles.statuscategory}>{task.category.name}</p>
+                    </div>
                   </div>
                 ))
               ) : (
@@ -90,12 +113,15 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.upcomingside}>
-            <p className={styles.leftTitles}>EN COURS</p>
+            <p className={styles.rightTitles}>EN COURS</p>
             <div className={styles.scrollable}>
               {progressTasks.length > 0 ? (
                 progressTasks.map(task => (
                   <div key={task.id} className={styles.sidetasks}>
-                    <div>{task.title}</div>
+                    <div className={styles.dashstatus}>
+                      <p className={styles.statustitle}>{task.title}</p>
+                      <p className={styles.statuscategory}>{task.category.name}</p>
+                    </div>
                   </div>
                 ))
               ) : (
@@ -105,12 +131,15 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.upcomingside}>
-            <p className={styles.leftTitles}>EFFECTUEES</p>
+            <p className={styles.rightTitles}>EFFECTUEES</p>
             <div className={styles.scrollable}>
               {completedTasks.length > 0 ? (
                 completedTasks.map(task => (
                   <div key={task.id} className={styles.sidetasks}>
-                    <div>{task.title}</div>
+                    <div className={styles.dashstatus}>
+                      <p className={styles.statustitle}>{task.title}</p>
+                      <p className={styles.statuscategory}>{task.category.name}</p>
+                    </div>
                   </div>
                 ))
               ) : (

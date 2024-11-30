@@ -24,6 +24,11 @@
   --chart-complete:#437A6F;
   --border-color-full-calendar:1px solid rgb(227, 227, 227);
 
+  --chart-progress:#63f5ff;
+  --title-todaystasks: #000;
+  --color-calendar-dash:#000;
+  --dash-status-colors: #e07a5f;
+  --dash-status-title:#000;
 }
 
 [data-theme="dark"] {
@@ -44,10 +49,15 @@
   --gradiant-color-darker: #0E3028;
   --gradiant-color-dark:  #354945;
   --gradiant-color-light:  #445652;
-  --gradiant-color-lighter:  #c2ccca;
+  --gradiant-color-lighter:  #729993;
   --chart-pending: #FDB700;
   --chart-complete: #d8d8d8;
   --border-color-full-calendar: 1px solid rgba(227, 227, 227, 0.371);
+  --chart-progress:#63f5ff;
+  --title-todaystasks: #81b29a;
+  --color-calendar-dash:#fff;
+  --dash-status-colors: #f6bd60;
+  --dash-status-title:#fff;
 }
 
 
@@ -117,15 +127,3 @@ button:hover {
   transform: scale(1.1);
   transition: transform 0.2s ease;
 }
-
-
-
-
-
-
-
-
-
-
-
-

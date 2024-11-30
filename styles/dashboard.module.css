@@ -4,7 +4,7 @@
     display: flex;
     gap: 20px;
 }
-.dashright{
+.dashleft{
     width: 70%;
     height: 85.5vh;
     display: block;
@@ -36,31 +36,62 @@
     justify-content: center;
 }
 
-.dashright h2{
+.dashleft h2{
     margin-bottom: 10px;
     color: var(--green-light-white-lightmode);
 }
 .dashwork{
     background-color: var(--container-bg-color);
-    width: 30%;
+    width: 35%;
     height: 10vh;
     border-radius: 15px;
     padding: 10px;
+    overflow-y: auto;
     
 }
-
-.dashcategory h4{
-    color: var( --color-category-yellow);
+.dashwork::-webkit-scrollbar{
+  width: 0px;
 }
 
+.dashcategory .categoryLink{
+    color: var( --color-category-yellow);
+    text-decoration: none;
+    font-weight: 600;
+    transition: font-size 0.3s ease, color 0.3s ease;
+}
+.dashcategory .categoryLink:hover {
+  color: var(--color-category-yellow);
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.categorystats{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.nbrstats{
+  display: block;
+  color: rgb(238, 234, 234);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.count{
+  text-align: center;
+  color: var(--dash-status-colors);
+
+}
 
 .taskshead{
     margin-top: -2vh;
     color:var(--green-light-white-lightmode);
 }
 
-.dashright  .todaystasks::-webkit-scrollbar {
-    width: 6px; /* Largeur de la barre */
+.dashleft  .todaystasks::-webkit-scrollbar {
+    width: 2px; /* Largeur de la barre */
 }
 
 .todaystasks {
@@ -72,49 +103,8 @@
 }
 
 
-/*.task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-  }*/
-  
-/*.duedate {
-    margin-left: auto; 
-    border-radius: 8px;
-    color: red;
-    padding-inline: 5px;
-    font-weight: 600;
-    background-color: aqua;
-    width: 10vh;
-  }
-  
-
-.task h3 {
-  font-size: 16px;
-  font-weight: bold;
-  color: #343a40;
-
-}
-
-.task p {
-  font-size: 14px;
-  color: black;
-  margin: 0;
-}
-
-
-.task:hover {
-  
-}*/
-
-
-
-
-
-.dashright h2{
-    font-size: 18px;
+.dashleft h2{
+  font-size: 18px;
 }
 
 
@@ -132,13 +122,27 @@
 
   .tasksTable tr:hover {
     background-color: var(--green-dark-white-hover);
-    border-radius: 10px;
   }
-  
 
   .tasksTable td:first-child {
     text-align: left; 
   }
+  
+  
+  .tasktitle{
+    color: var( --color-calendar-dash);
+    font-weight: 700;
+  }
+
+  .duedate{
+    color: var(--title-todaystasks);
+    font-weight: 400;
+    text-decoration: underline;
+  }
+
+ .catname{
+    color:  var(--title-todaystasks);
+ }
   
   .priolevel {
     display: inline-block;
@@ -147,8 +151,8 @@
   }
   
   
-/********************LEFT SIDE*******************/
-.dashleft{
+/********************RIGHT SIDE*******************/
+.dashright{
     width: 30%;
     height:85.5vh;
     display: block;
@@ -157,12 +161,12 @@
 
 
 
-.dashleft .calendarside h3{
+.dashright .calendarside h3{
     margin-inline-start: 10px;
     margin-top: 10px;
     font-weight: 100;
 }
-.dashleft .upcomingside {
+.dashright .upcomingside {
     background: linear-gradient(120deg, 
     var( --gradiant-color-darker) 0%, 
     var( --gradiant-color-dark) 50%, 
@@ -181,15 +185,15 @@
 }
 
 
-.dashleft .upcomingside .leftTitles{
+.dashright .upcomingside .rightTitles{
     color: var(--color-category-yellow);
 }
-.dashleft .upcomingside p {
+.dashright .upcomingside p {
     font-weight: 600; 
     color: #333; 
 }
 
-.dashleft .upcomingside .scrollable {
+.dashright .upcomingside .scrollable {
     flex-grow: 1; 
     overflow-y: auto; 
     scrollbar-width: thin; 
@@ -198,24 +202,44 @@
     margin-top: -10px;
 }
 
-.dashleft .upcomingside .scrollable::-webkit-scrollbar {
+.dashright .upcomingside .scrollable::-webkit-scrollbar {
     width: 6px; /* Largeur de la barre */
 }
 
-.dashleft .upcomingside .scrollable::-webkit-scrollbar-thumb {
+.dashright .upcomingside .scrollable::-webkit-scrollbar-thumb {
     background-color: #bbb; 
     border-radius: 3px; 
 }
 
-.dashleft .upcomingside .scrollable::-webkit-scrollbar-track {
+.dashright .upcomingside .scrollable::-webkit-scrollbar-track {
     background: #f0f0f0; 
     border-radius: 3px;
 }
 
-.dashleft .upcomingside .scrollable div {
+.dashright .upcomingside .scrollable div {
     line-height: 1.6; 
     font-size: 14px; 
     color: #555; 
+}
+
+.dashright .upcomingside .dashstatus{
+  padding:1px ;
+  margin-bottom: 2px;
+  border-radius: 3px;
+  display: flex;
+}
+.dashright .upcomingside .dashstatus .statustitle{
+  font-size: 16px;
+  color: var(--dash-status-title);
+}
+.dashright .upcomingside .dashstatus .statuscategory{
+  margin-left: auto;
+  color: var(--dash-status-colors);
+}
+
+.dashright .upcomingside .dashstatus:hover{
+  background-color: var(--gradiant-color-dark);
+  transition: 0.5s;
 }
 
 
@@ -226,12 +250,75 @@
     
 }
 
- .dashleft .calendarside p,
+ .dashright .calendarside p,
 .upcomingside p,
  .pendingside p,
  .completedside p {
     padding: 10px;
     font-weight: 500;
 }
+
+
+@media (max-width: 1030px) {
+  .dashbody{
+    height: 85.5vh;
+    display: flex;
+    gap: 5px;
+}
+.dashleft{
+  width: 60%;
+  height: 85.5vh;
+  display: block;
+  padding: 2vh;
+}
+
+.dashright{
+  width: 40%;
+  height:85.5vh;
+  display: block;
+  padding-inline: 10px;
+}
+.categorystats{
+  display: block;
+  gap: 10px;
+  text-align: center;
+}
+
+.nbrstats{
+  display: block;
+  margin-top: 5px;
+  color: rgb(238, 234, 234);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.count{
+  text-align: center;
+  color: var(--dash-status-colors);
+
+}
+}
+
+@media (max-width: 400px) {
+  .dashbody{
+    height: 85.5vh;
+    display: block;
+    gap: 20px;
+}
+.dashleft{
+    width: 100%;
+    height: 85.5vh;
+    display: block;
+    padding: 2vh;
+}
+
+.dashright{
+  width: 100%;
+  height:85.5vh;
+  display: block;
+  padding-inline: 10px;
+}
+}
+
 
 
