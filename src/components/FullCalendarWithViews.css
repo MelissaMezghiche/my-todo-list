@@ -4,6 +4,9 @@
     max-height: 80vh; /* Set a maximum height, you can adjust this value */
     overflow-y: auto; /* Enable scrolling when content exceeds max-height */
 }
+.fc::-webkit-scrollbar{
+  width: 0px;
+}
   
   /* Optional: If you want the calendar to take up less space on smaller screens, you can use media queries */
 @media (max-width: 768px) {
@@ -11,22 +14,79 @@
     max-height: 60vh; /* Adjust for smaller screens */
   }
 }
-  
+
+@media(max-width: 1120px) {
+  .fc .fc-toolbar-title{
+    font-size: 24px;
+  }
+  .fc-button-primary{
+    padding: 5px !important;
+  }
+}
+
+@media(max-width: 980px) {
+  .fc .fc-toolbar-title{
+    font-size: 20px;
+  }
+}
+
+@media(max-width: 935px) {
+  .fc .fc-toolbar-title{
+    font-size: 17px;
+  }
+  .fc-button-primary{
+    padding: 3px !important;
+    font-size: smaller;
+  }
+}
+@media(max-width: 860px) {
+  .fc .fc-toolbar-title{
+    font-size: 14px;
+  }
+}
+
+
 .fc .fc-toolbar-title{
     color: var(--green-dark-white-lightmode);
+} 
+
+.fc-theme-standard .fc-scrollgrid{
+  border-radius: 5px;
+}
+.fc th{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.fc td{
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.fc th, td, .fc-theme-standard .fc-scrollgrid{
+  border: var(--border-color-full-calendar) !important;
+}
+.fc th{
+  background-color: #abcdbb1d !important;
 }
 .fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number{
     color: var(--black-in-lightmode-white-in-darkmode);
 }
 .fc-button-primary{
-    background-color: var(--green-bgcolor-light) !important;
+    background-color: #437A6F !important;
 }
 .fc-button-primary:hover{
     background-color: #0F3028 !important;
     transition: all 0.5s ease;
 }
 .fc-col-header-cell-cushion{
+    font-weight: 400  !important;
     color: var(--color-yellow) !important;
+}
+.fc-event-title,
+.fc-scrollgrid-shrink-cushion {
+  color: var(--color-black-white) !important;  /* Modify this color as needed */
+}
+.fc-event-time{
+  color: var(--green-color-lightmode-lightgreen-darkmode);
 }
 
 

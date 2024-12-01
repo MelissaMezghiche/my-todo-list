@@ -30,7 +30,7 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ onDateSelect }) => {
         const formattedEvents = tasks.map((task: any) => ({
           id: task.id,
           title: task.title,
-          start: task.startDate,
+          start: task.dueDate, // only changed this in this page from startDate to dueDate
           end: task.dueDate,
           color: task.priority.color,
           extendedProps: {
