@@ -1,3 +1,4 @@
+/********************LEFT SIDE*******************/
 
 .dashbody{
     height: 85.5vh;
@@ -91,7 +92,7 @@
 }
 
 .dashleft  .todaystasks::-webkit-scrollbar {
-    width: 2px; /* Largeur de la barre */
+    width: 0px; 
 }
 
 .todaystasks {
@@ -258,52 +259,85 @@
     font-weight: 500;
 }
 
+.noTasksMessage {
+  color: var( --title-todaystasks) !important; /* Par exemple, rouge tomate */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.noTasksMessageToday {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.noTasksMessageToday svg {
+  font-size: 4rem;
+  color: var(--chart-complete) !important;
+}
+
+.noTasksMessageToday svg:hover{
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
 
 @media (max-width: 1030px) {
-  .dashbody{
+    .dashbody{
+      height: 85.5vh;
+      display: flex;
+      gap: 5px;
+  }
+  .dashleft{
+    width: 60%;
     height: 85.5vh;
-    display: flex;
-    gap: 5px;
-}
-.dashleft{
-  width: 60%;
-  height: 85.5vh;
-  display: block;
-  padding: 2vh;
-}
+    display: block;
+    padding: 2vh;
+  }
 
-.dashright{
-  width: 40%;
-  height:85.5vh;
-  display: block;
-  padding-inline: 10px;
-}
-.categorystats{
-  display: block;
-  gap: 10px;
-  text-align: center;
-}
+  .dashright{
+    width: 40%;
+    height:85.5vh;
+    display: block;
+    padding-inline: 10px;
+  }
+  .categorystats{
+    display: block;
+    gap: 10px;
+    text-align: center;
+  }
 
-.nbrstats{
-  display: block;
-  margin-top: 5px;
-  color: rgb(238, 234, 234);
-  font-size: 14px;
-  font-weight: 700;
-}
+  .nbrstats{
+    display: block;
+    margin-top: 5px;
+    color: rgb(238, 234, 234);
+    font-size: 14px;
+    font-weight: 700;
+  }
 
-.count{
-  text-align: center;
-  color: var(--dash-status-colors);
+  .count{
+    text-align: center;
+    color: var(--dash-status-colors);
+  }
+  .tasktitle{
+    font-weight: 100;
+    font-size: 14px;
+  }
+  .dashright .upcomingside .dashstatus .statustitle{
+    font-size: 13px;
+  }
+  .dashright .upcomingside {
+    padding-inline: 10px; 
+    padding-bottom: 15px;
 
 }
 }
 
 @media (max-width: 400px) {
   .dashbody{
-    height: 85.5vh;
     display: block;
-    gap: 20px;
 }
 .dashleft{
     width: 100%;
@@ -322,3 +356,28 @@
 
 
 
+/*CHECKBOX STYLE*/
+.checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.checkbox:checked {
+  border-color: #437A6F;
+  background-color: #437A6F;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2"%3E%3Cpath stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/%3E%3C/svg%3E');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+}
+
+.checkbox:hover {
+  border-color: #437A6F;
+}

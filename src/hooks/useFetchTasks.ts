@@ -61,7 +61,7 @@ export function useFetchTasks() {
           // Filtrer les tâches dont la date d'échéance est aujourd'hui
           const todayTasks = sortTasksByTime(
             data.filter(
-              task => task.dueDate.slice(0, 10) === today && task.status !== 'completed'
+              task => task.dueDate.slice(0, 10) === today && task.status !== 'pending'
             )
           );
 
