@@ -35,7 +35,7 @@ const shadowPlugin = {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, shadowPlugin);
 
 const LineChartWithFilters = () => {
-  const [filter, setFilter] = useState<'week' | 'month' | 'year'>('week'); // État du filtre
+  const [filter, setFilter] = useState<'week' | 'year'>('week'); // État du filtre
   const [datasets, setDatasets] = useState([]);
 
   useEffect(() => {
@@ -59,8 +59,6 @@ const LineChartWithFilters = () => {
     labels:
       filter === 'year'
         ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        : filter === 'month'
-        ? ['Week 1', 'Week 2', 'Week 3', 'Week 4']
         : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: datasets,
   };
@@ -90,12 +88,6 @@ const LineChartWithFilters = () => {
             onClick={() => setFilter('week')}
           >
             Semaine
-          </button>
-          <button
-            className={filter === 'month' ? style.selectedButton : style.button}
-            onClick={() => setFilter('month')}
-          >
-            Mois
           </button>
           <button
             className={filter === 'year' ? style.selectedButton : style.button}

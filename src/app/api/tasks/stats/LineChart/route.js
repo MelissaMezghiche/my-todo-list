@@ -57,29 +57,6 @@ export async function GET(req) {
           id: true
         },
       });
-    } else if (filter === 'month') {
-      // Pour le mois, compter les tâches par semaine
-      completedTasksData = await prisma.$queryRaw`
-        SELECT 
-          FLOOR((DAYOFMONTH(completedDate) - 1) / 7) + 1 AS week,
-          COUNT(*) AS taskCount
-        FROM Task
-        WHERE status = 'completed'
-        AND completedDate BETWEEN ${startDate} AND ${endDate}
-        GROUP BY week
-        ORDER BY week
-      `;
-
-      expiredTasksData = await prisma.$queryRaw`
-        SELECT 
-          FLOOR((DAYOFMONTH(dueDate) - 1) / 7) + 1 AS week,
-          COUNT(*) AS taskCount
-        FROM Task
-        WHERE status = 'expired'
-        AND dueDate BETWEEN ${startDate} AND ${endDate}
-        GROUP BY week
-        ORDER BY week
-      `;
     } else if (filter === 'year') {
       // Pour l'année, compter les tâches par mois
       completedTasksData = await prisma.task.groupBy({
@@ -114,8 +91,6 @@ export async function GET(req) {
     // Préparer les données pour le graphique
     const labels = filter === 'year'
       ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      : filter === 'month'
-      ? ['Week 1', 'Week 2', 'Week 3', 'Week 4']
       : ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
     // Transformer les données pour le graphique
@@ -124,9 +99,6 @@ export async function GET(req) {
         const dayData = completedTasksData.find(item => 
           new Date(item.completedDate).getDay() === index + 1);
         return dayData ? dayData._count.id : 0;
-      } else if (filter === 'month') {
-        const weekData = completedTasksData.find(item => item.week === index + 1);
-        return weekData ? Number(weekData.taskCount) : 0;
       } else if (filter === 'year') {
         const monthData = completedTasksData.find(item => 
           new Date(item.completedDate).getMonth() === index
@@ -140,9 +112,6 @@ export async function GET(req) {
         const dayData = expiredTasksData.find(item => 
           new Date(item.dueDate).getDay() === index + 1);
         return dayData ? dayData._count.id : 0;
-      } else if (filter === 'month') {
-        const weekData = expiredTasksData.find(item => item.week === index + 1);
-        return weekData ? Number(weekData.taskCount) : 0;
       } else if (filter === 'year') {
         const monthData = expiredTasksData.find(item => 
           new Date(item.dueDate).getMonth() === index
