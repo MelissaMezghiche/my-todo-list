@@ -13,6 +13,12 @@ const Sidebar = () => {
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+
+    // Trigger a resize of the calendar in the CalendarPage after toggling the sidebar 
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 200);
+
   };
 
   return (

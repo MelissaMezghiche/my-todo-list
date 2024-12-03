@@ -19,7 +19,7 @@ interface TaskCardProps {
 
 const TaskCard: React.FC<TaskCardProps> = ({ tasks, onTaskStatusChange }) => {
 
-  const [notification, setNotification] = useState<string | null>(null); // Notification state
+  const [notif_completed, setNotif_completed] = useState<string | null>(null); // Notification state
 
   const handleStatusChange = async (taskId: string, currentStatus: string) => {
     
@@ -48,8 +48,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ tasks, onTaskStatusChange }) => {
 
        // Show notification
        if (newStatus === "completed") {
-        setNotification("Task completed"); // Set notification message
-        setTimeout(() => setNotification(null), 5000); // Hide notification after 3 seconds
+        setNotif_completed("Task completed"); // Set notification message
+        setTimeout(() => setNotif_completed(null), 5000); // Hide notification after 3 seconds
       }
 
 
@@ -80,12 +80,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ tasks, onTaskStatusChange }) => {
   return (
     <div className="task-card">
       {/* Notification Section */}
-      {notification && (
-        <div className="notification">
-          <span>{notification}</span>
+      {notif_completed && (
+        <div className="notification_completed">
+          <span>{notif_completed}</span>
           <IoCloseSharp
             className='close-notif'
-            onClick={() => setNotification(null)} // Close notification on button click
+            onClick={() => setNotif_completed(null)} // Close notification on button click
           />
         </div>
       )}

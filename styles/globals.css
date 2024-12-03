@@ -23,6 +23,7 @@
   --chart-pending: #FDB700;
   --chart-complete:#437A6F;
   --border-color-full-calendar:1px solid rgb(227, 227, 227);
+  --background-today: #fffadf;
 
   --chart-progress:#63f5ff;
   --title-todaystasks: #000;
@@ -53,6 +54,7 @@
   --chart-pending: #FDB700;
   --chart-complete: #d8d8d8;
   --border-color-full-calendar: 1px solid rgba(227, 227, 227, 0.371);
+  --background-today: #031b1b;
   --chart-progress:#63f5ff;
   --title-todaystasks: #81b29a;
   --color-calendar-dash:#fff;
@@ -71,7 +73,7 @@
 }
 
 body {
-  background-color: var(--bg-color); /**/
+  background-color: var(--bg-color); 
   font-family: "Poppins", sans-serif;
 }
 
@@ -104,13 +106,12 @@ button:hover {
 }
  
 
-/**/ .Logo-notif{  
+.Logo-notif{  
   padding: 10px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: fit-content;
-  /* background-color: bisque;*/
 }
 .Notif-L-D-mode{
   display: flex;
@@ -122,7 +123,7 @@ button:hover {
   font-size: 25px;
   color: var(--color-yellow);
 }
-/**/ .Icons:hover{
+.Icons:hover{
   cursor: pointer;
   transform: scale(1.1);
   transition: transform 0.2s ease;

@@ -1,7 +1,6 @@
 
 .task-card {
     border-radius: 5px;
-    margin-bottom: 10px;   
 }
 .Task-info{
     padding-block: 10px;
@@ -9,9 +8,11 @@
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
     margin-block: 10px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding-inline: 5px;
     border-radius: 5px;
+    transition: font-size 0.3s, overflow-y 0.3s; 
 }
 
 .noTasks-case{
@@ -26,15 +27,7 @@
     gap: 10px;
 }
 
-@media(max-width: 1100px) {
-  .Task-info{
-    overflow-y: auto;
-  }
-  .Task-info::-webkit-scrollbar{
-    width: 0px;
-  }
-  /*i need to make the text smaller*/
-}
+
 
 .cat-time{
     font-size: 12px;
@@ -55,10 +48,10 @@
 
 /* Hide the default checkbox */
 input[type="checkbox"] {
-    display: none;
+  display: none;
 }
   
-  /* Custom checkbox appearance */
+/* Custom checkbox appearance */
 input[type="checkbox"] + label {
     display: inline-block;
     width: 18px;
@@ -67,15 +60,16 @@ input[type="checkbox"] + label {
     border-radius: 5px;
     position: relative;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s width 0.3s, height 0.3s, font-size 0.3s;
+    padding: 5px;
 }
   
-  /* Checked state of the checkbox */
+/* Checked state of the checkbox */
 input[type="checkbox"]:checked + label {
     background-color: #437A6F; /* Green when checked */
 }
   
-  /* Create the checkmark inside the custom checkbox */
+/* Create the checkmark inside the custom checkbox */
 input[type="checkbox"]:checked + label::before {
     content: "✔";
     position: absolute;
@@ -83,6 +77,7 @@ input[type="checkbox"]:checked + label::before {
     left: 2px;
     font-size: 14px;
     color: white;
+    transition: font-size 0.3s;
 }
   
   /* Optional: Add hover effect */
@@ -97,7 +92,7 @@ input[type="checkbox"] + label:hover {
 
 
 /* Notification styles */
-.notification {
+.notification_completed {
     position: fixed;
     bottom: 20px;
     right: -300px; /* Start outside the viewport */
@@ -111,11 +106,11 @@ input[type="checkbox"] + label:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    animation: slide-in 0.5s forwards, slide-out 0.5s 9.5s forwards;
+    animation: slide-in 0.5s forwards, slide-out 0.5s 4.5s forwards;
     opacity: 0;
   }
   
-  .notification .close-notif {
+  .notification_completed .close-notif {
     font-size: 18px;
     margin-left: 15px;
     cursor: pointer;
@@ -144,6 +139,30 @@ input[type="checkbox"] + label:hover {
     }
   }
   
-
-
   
+@media(max-width: 1120px) {
+  .Task-info{
+    font-size: 13px;
+    overflow-y: auto;
+  }
+  .cat-time{
+    font-size: 10px;
+  }
+  .Task-info::-webkit-scrollbar{
+    width: 0px;
+  }
+  input[type="checkbox"] + label{
+    width: 15px !important;
+    height: 15px !important;
+  }
+  input[type="checkbox"]:checked + label::before {
+    font-size: 10px !important;
+    bottom: -2px !important;
+  }
+}
+
+@media(max-width: 935px) {
+  .Task-info{
+    font-size: 11px;
+  }
+}
