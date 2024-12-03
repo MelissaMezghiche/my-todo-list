@@ -16,12 +16,9 @@ export async function GET(req) {
       startDate = new Date(now.setDate(diff));
       endDate = new Date(startDate);
       endDate.setDate(startDate.getDate() + 6);
-    } else if (filter === 'month') {
-      startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-      endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     } else if (filter === 'year') {
       startDate = new Date(now.getFullYear(), 0, 1);
-      endDate = new Date(now.getFullYear(), 11, 31);
+      endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59);
     } else {
       throw new Error('Invalid filter value');
     }
@@ -30,60 +27,56 @@ export async function GET(req) {
 
     if (filter === 'week') {
       // Pour la semaine, compter les tâches par jour
-      completedTasksData = await prisma.task.groupBy({
-        by: ['completedDate'],
+      completedTasksData = await prisma.task.findMany({
         where: {
           status: 'completed',
-          completedDate: { 
-            gte: startDate, 
-            lte: endDate 
+          completedDate: {
+            gte: startDate,
+            lte: endDate,
           },
         },
-        _count: {
-          id: true
+        select: {
+          completedDate: true,
         },
       });
 
-      expiredTasksData = await prisma.task.groupBy({
-        by: ['dueDate'],
+      expiredTasksData = await prisma.task.findMany({
         where: {
           status: 'expired',
-          dueDate: { 
-            gte: startDate, 
-            lte: endDate 
+          dueDate: {
+            gte: startDate,
+            lte: endDate,
           },
         },
-        _count: {
-          id: true
+        select: {
+          dueDate: true,
         },
       });
     } else if (filter === 'year') {
-      // Pour l'année, compter les tâches par mois
-      completedTasksData = await prisma.task.groupBy({
-        by: ['completedDate'],
+      // Pour l'année, récupérer toutes les tâches accomplies et échues
+      completedTasksData = await prisma.task.findMany({
         where: {
           status: 'completed',
-          completedDate: { 
-            gte: startDate, 
-            lte: endDate 
+          completedDate: {
+            gte: startDate,
+            lte: endDate,
           },
         },
-        _count: {
-          id: true
+        select: {
+          completedDate: true,
         },
       });
 
-      expiredTasksData = await prisma.task.groupBy({
-        by: ['dueDate'],
+      expiredTasksData = await prisma.task.findMany({
         where: {
           status: 'expired',
-          dueDate: { 
-            gte: startDate, 
-            lte: endDate 
+          dueDate: {
+            gte: startDate,
+            lte: endDate,
           },
         },
-        _count: {
-          id: true
+        select: {
+          dueDate: true,
         },
       });
     }
@@ -93,30 +86,32 @@ export async function GET(req) {
       ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
       : ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
-    // Transformer les données pour le graphique
+    // Transformer les données récupérées
     const completedData = labels.map((_, index) => {
       if (filter === 'week') {
-        const dayData = completedTasksData.find(item => 
-          new Date(item.completedDate).getDay() === index + 1);
-        return dayData ? dayData._count.id : 0;
-      } else if (filter === 'year') {
-        const monthData = completedTasksData.find(item => 
-          new Date(item.completedDate).getMonth() === index
+        const dayData = completedTasksData.filter((task) =>
+          new Date(task.completedDate).getDay() === index + 1
         );
-        return monthData ? monthData._count.id : 0;
+        return dayData.length;
+      } else if (filter === 'year') {
+        const monthData = completedTasksData.filter((task) =>
+          new Date(task.completedDate).getMonth() === index
+        );
+        return monthData.length;
       }
     });
 
     const expiredData = labels.map((_, index) => {
       if (filter === 'week') {
-        const dayData = expiredTasksData.find(item => 
-          new Date(item.dueDate).getDay() === index + 1);
-        return dayData ? dayData._count.id : 0;
-      } else if (filter === 'year') {
-        const monthData = expiredTasksData.find(item => 
-          new Date(item.dueDate).getMonth() === index
+        const dayData = expiredTasksData.filter((task) =>
+          new Date(task.dueDate).getDay() === index + 1
         );
-        return monthData ? monthData._count.id : 0;
+        return dayData.length;
+      } else if (filter === 'year') {
+        const monthData = expiredTasksData.filter((task) =>
+          new Date(task.dueDate).getMonth() === index
+        );
+        return monthData.length;
       }
     });
 
@@ -150,9 +145,9 @@ export async function GET(req) {
   } catch (error) {
     console.error('API Error:', error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         error: error.message || 'Internal Server Error',
-        details: error.toString() 
+        details: error.toString(),
       }),
       { status: 500 }
     );
