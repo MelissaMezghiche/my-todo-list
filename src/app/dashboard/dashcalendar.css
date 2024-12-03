@@ -1,130 +1,13 @@
 .css-wjpgyb-MuiDateCalendar-root {
-    overflow: hidden;
-    width: 320px;
-    max-height: 336px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex
-  ;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    margin: 0 auto;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex
-  ;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    height: 336px;
-    background-color: var(--sidebar-bg-color);
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 0px;
-    width: 100%;
-    height: 40vh;
-    margin-top: 2vh;
-    color: var(--black-in-lightmode-white-in-darkmode);
-  }
-  
-  .css-cyfsxc-MuiPickersCalendarHeader-labelContainer {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex
-  ;
-    overflow: hidden;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    cursor: pointer;
-    margin-right: auto;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.5;
-    letter-spacing: 0.00938em;
     color: var(  --color-calendar-dash);
   }
   
   
   .css-17f9e7e-MuiTypography-root-MuiDayCalendar-weekDayLabel {
-    margin: 0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 400;
-    font-size: 0.75rem;
-    line-height: 1.66;
-    letter-spacing: 0.03333em;
-    width: 36px;
-    height: 40px;
-    margin: 0 2px;
-    text-align: center;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex
-  ;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
     color: var(  --color-calendar-dash);
   }
   
   .css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root {
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex
-  ;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    background-color: transparent;
-    outline: 0;
-    border: 0;
-    margin: 0;
-    border-radius: 0;
-    padding: 0;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    vertical-align: middle;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    color: inherit;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 400;
-    font-size: 0.75rem;
-    line-height: 1.66;
-    letter-spacing: 0.03333em;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    padding: 0;
-    background-color: transparent;
-    -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     color: var(  --color-calendar-dash);
     margin: 0 2px;
   }
@@ -138,140 +21,24 @@
   
   
   .css-14yom7c-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    -webkit-flex-shrink: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    fill: currentColor;
-    font-size: 1.5rem;
-    will-change: transform;
-    -webkit-transition: -webkit-transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
     color: var(  --color-calendar-dash);
   }
   
-  
-  
-  
-  
-  
-  
+
   .css-z4ns9w-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex
-  ;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    background-color: transparent;
-    outline: 0;
-    border: 0;
-    margin: 0;
-    border-radius: 0;
-    padding: 0;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    vertical-align: middle;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-    -webkit-flex: 0 0 auto;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    font-size: 1.5rem;
-    padding: 8px;
-    border-radius: 50%;
-    color: rgba(0, 0, 0, 0.54);
-    -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    --IconButton-hoverBg: rgba(0, 0, 0, 0.04);
-    margin-right: -12px;
+ 
     color: var(  --color-calendar-dash);
   }
   
   
   .css-17nrfho-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex
-  ;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    background-color: transparent;
-    outline: 0;
-    border: 0;
-    margin: 0;
-    border-radius: 0;
-    padding: 0;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    vertical-align: middle;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -webkit-text-decoration: none;
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-    -webkit-flex: 0 0 auto;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    font-size: 1.5rem;
-    padding: 8px;
-    border-radius: 50%;
-    color: rgba(0, 0, 0, 0.54);
-    -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    --IconButton-hoverBg: rgba(0, 0, 0, 0.04);
-    margin-left: -12px;
     color: var(  --color-calendar-dash);
   }
   
   
-  
   .css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
     color: #fff;
-    background-color: #e07a5f;
+    background-color: #e07a5f !important;
     font-weight: 500;
   }
   
@@ -280,5 +47,17 @@
     background-color: rgb(212, 138, 150);
     font-weight: 500;
   }
-
   
+  .css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+    color: #fff;
+    background-color: #e07a5f !important;
+    font-weight: 500;
+}
+
+.css-innj4t-MuiPickersYear-yearButton.Mui-selected {
+  color: #fff;
+  background-color: #e07a5f !important;
+}
+
+
+
