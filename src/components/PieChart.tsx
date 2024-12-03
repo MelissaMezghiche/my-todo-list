@@ -1,22 +1,51 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
-import style from './PieChart.module.css';
+{/*import style from './PieChart.module.css';*/}
 
-const PieChart = () => {
-  // Données pour le graphique
-  
+
+
+interface ChartDataItem {
+  label: string;
+  value: number;
+  backgroundColor: string;
+  hoverBackgroundColor: string;
+}
+
+const PieChart: React.FC = () => {
+  const [chartData, setChartData] = useState<ChartDataItem[] | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/tasks/stats/pie');
+        if (!response.ok) {
+          throw new Error('Failed to fetch chart data');
+        }
+        const data: ChartDataItem[] = await response.json();
+        setChartData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!chartData) {
+    return <div>Loading...</div>;
+  }
 
   const data = {
-    labels: ['Accomplies', 'En cours', 'Échues', 'À venir'],
+    labels: chartData.map((item) => item.label),
     datasets: [
       {
-        data: [7, 5, 3, 2], // Nombre de tâches
-        backgroundColor: ['#f4c724', '#437A6F', '#e63946', '#f1e0b0'], // Couleurs
-        hoverBackgroundColor: ['#f5d94c', '#5a9983', '#f16465', '#f7e5bf'], // Couleurs au survol
+        data: chartData.map((item) => item.value),
+        backgroundColor: chartData.map((item) => item.backgroundColor),
+        hoverBackgroundColor: chartData.map((item) => item.hoverBackgroundColor),
         borderWidth: 0,
         cutout: '87%', // Trou au centre
         rotation: -90, // Rotation pour demi-cercle
@@ -32,7 +61,15 @@ const PieChart = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false, // Masquer la légende intégrée
+        position: 'bottom',
+        labels: {
+          font: {
+            size: 16,
+          },
+          padding: 15,
+          boxWidth: 20,
+        },
+        align: 'center',
       },
       tooltip: {
         enabled: true,
@@ -40,34 +77,43 @@ const PieChart = () => {
     },
   };
 
+  /*  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true, 
+        position: 'bottom',
+        labels: {
+          boxWidth: 20, 
+          padding: 10, 
+        },
+        
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+  };*/
+  const totalTasks = chartData.reduce((sum, item) => sum + item.value, 0);
+
   return (
-    <div className={style.container}>
-      <Doughnut data={data} options={options}/>
-      {/* Centre du graphique */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          textAlign: 'center',
-          fontSize: '16px',
-        }}
-      >
-        <div style={{ fontWeight: 'bold', fontSize: '40px', marginTop:'25px' }}>17</div>
+    <div style={{position:'relative', width: '100%', maxWidth: '400px', height: '250px', margin: 'auto' }}>
+      <Doughnut data={data} options={options} />
+       {/* Centre du graphique */}
+       <div
+          style={{
+            position: 'absolute',
+            top: '40%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            textAlign: 'center',
+            fontSize: '16px',
+          }}
+        >
+        <div style={{ fontWeight: 'bold', fontSize: '40px', top:'-15px' }}>{totalTasks}</div>
         <div style={{ fontSize: '14px', color: '#666' }}>Tâches totales</div>
       </div>
-
-      {/* Légende */}
-      <div className={style.legend}>
-          <div className={style.item}> <div className={style.accomplies}></div>Accomplies</div>
-         
-          <div className={style.item}> <div className={style.encours}></div>En cours</div>
-         
-          <div className={style.item}><div className={style.echues}> </div>Échues</div>
- 
-          <div className={style.item}><div className={style.avenir}></div>À venir</div>
-    </div>
     </div>
   );
 };
