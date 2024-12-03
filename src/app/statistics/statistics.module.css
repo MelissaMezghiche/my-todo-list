@@ -1,0 +1,41 @@
+.chartcontainer {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  color: #437A6F;
+  border-radius: 20px;
+  box-shadow: 30px 47px 192px -48px rgba(0,0,0,0.48);
+  -webkit-box-shadow: 30px 47px 192px -48px rgba(0, 0, 0, 0.236);
+  -moz-box-shadow: 30px 47px 192px -48px rgba(0, 0, 0, 0.278);
+}
+
+.chartcontainer h2 {
+  padding: 10px;
+}
+
+.containetPie {
+  display: flex;
+  position: relative;
+  width: 350px;
+  height: 280px;
+  background-color: white;
+  border-radius: 17px;
+  box-shadow: 36px 22px 95px -4px rgba(0,0,0,0.28);
+  -webkit-box-shadow: 36px 22px 95px -4px rgba(0,0,0,0.28);
+  -moz-box-shadow: 36px 22px 95px -4px rgba(0,0,0,0.28);
+  margin: 1em 0;
+}
+
+.containerPieGlobal {
+  margin-top: 4.2em;
+}
+
+.piechart {
+  margin: 0 auto;
+  width: 300px;
+  height: 150px;
+}
+
+.containerTracker {
+  max-width: 65vw;
+}
