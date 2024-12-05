@@ -73,7 +73,7 @@ export async function POST(request) {
       status = 'pending'
     } = await request.json();
 
-    // Si la startDate est égale à la date actuelle, définir le statut à "in-progress"
+    // Si la startDate est égale à la date actuelle, définir le statut à "in-progress".
     const currentDate = new Date();
     const taskStartDate = new Date(startDate);
     const finalStatus = taskStartDate.toDateString() === currentDate.toDateString() ? 'in-progress' : status;
