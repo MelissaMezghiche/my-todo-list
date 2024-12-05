@@ -81,6 +81,7 @@ export function useFetchTasks() {
 
 
      // Fonction pour fetch les catégories
+     /*
      const fetchCategories = async () => {
         try {
           const response = await fetch('/api/categories');  // Assurez-vous que l'API pour les catégories existe
@@ -94,10 +95,31 @@ export function useFetchTasks() {
           console.error('Error connecting to API:', error);
         }
       };
+*/
+
+      useEffect(() => {
+        const fetchCategories = async () => {
+          try {
+            const response = await fetch('/api/categories');  // Requête à l'API
+            const data = await response.json();  // Transformation de la réponse en JSON
+      
+            // Ajoutez ici un console.log pour vérifier les données
+            console.log('Données des catégories:', data);  // Affichez les données dans la console
+      
+            // Assurez-vous que `data` contient bien un tableau et mettez-le dans l'état
+            setCategories(data);  // Mettre les catégories dans l'état (ou ajuster en fonction du format de la réponse)
+          } catch (error) {
+            console.error('Erreur lors de la récupération des catégories', error);
+          }
+        };
+        
+        fetchCategories();  // Appel de la fonction pour récupérer les catégories
+      }, []);
+      
   
       // Appeler les deux fonctions pour récupérer les tâches et les catégories
       fetchTasks();
-      fetchCategories();
+     //fetchCategories();
   }, []);
 
   return { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories };
