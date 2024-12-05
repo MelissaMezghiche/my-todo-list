@@ -2,29 +2,23 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function POST(request) {
+export async function GET(request) {
     try {
-        const { taskId, status } = await request.json();
+        const tasks = await prisma.task.findMany({
+            include: {
+              category: true,
+              priority: true, // Inclure les données de la catégorie
+            },
+          });       
 
-        if (!taskId || status === undefined) {
-            return new Response(JSON.stringify({ error: 'Invalid input' }), {
+        if (!tasks || tasks.length === 0) {
+            return new Response(JSON.stringify({ error: 'No tasks found' }), {
                 headers: { 'Content-Type': 'application/json' },
-                status: 400,
+                status: 404,
             });
         }
 
-        // Determine the completed date if status is 'completed'
-        let completedDate = null;
-        if (status === "completed") {
-            completedDate = new Date(); // Set current date and time for completion
-        }
-        
-        const updatedTask = await prisma.task.update({
-            where: { id: taskId },
-            data: { status, completedDate },
-        });
-
-        return new Response(JSON.stringify(updatedTask), {
+        return new Response(JSON.stringify(tasks), {
             headers: { 'Content-Type': 'application/json' },
             status: 200,
         });
