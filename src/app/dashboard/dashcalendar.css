@@ -1,0 +1,63 @@
+.css-wjpgyb-MuiDateCalendar-root {
+    color: var(  --color-calendar-dash);
+  }
+  
+  
+  .css-17f9e7e-MuiTypography-root-MuiDayCalendar-weekDayLabel {
+    color: var(  --color-calendar-dash);
+  }
+  
+  .css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root {
+    color: var(  --color-calendar-dash);
+    margin: 0 2px;
+  }
+  
+  
+  .css-r3djoj-MuiTouchRipple-root-selected {
+    color: #fff;
+    background-color: pink;
+    font-weight: 500;
+  }
+  
+  
+  .css-14yom7c-MuiSvgIcon-root-MuiPickersCalendarHeader-switchViewIcon {
+    color: var(  --color-calendar-dash);
+  }
+  
+
+  .css-z4ns9w-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
+ 
+    color: var(  --color-calendar-dash);
+  }
+  
+  
+  .css-17nrfho-MuiButtonBase-root-MuiIconButton-root-MuiPickersArrowSwitcher-button {
+    color: var(  --color-calendar-dash);
+  }
+  
+  
+  .css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+    color: #fff;
+    background-color: #e07a5f !important;
+    font-weight: 500;
+  }
+  
+  .css-4k4mmf-MuiButtonBase-root-MuiPickersDay-root.Mui-selected:hover {
+    color: #fff;
+    background-color: rgb(212, 138, 150);
+    font-weight: 500;
+  }
+  
+  .css-qct7wd-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+    color: #fff;
+    background-color: #e07a5f !important;
+    font-weight: 500;
+}
+
+.css-innj4t-MuiPickersYear-yearButton.Mui-selected {
+  color: #fff;
+  background-color: #e07a5f !important;
+}
+
+
+

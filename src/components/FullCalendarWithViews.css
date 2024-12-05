@@ -1,42 +1,76 @@
 
 /* Container for the calendar */
 .fc {
-    max-height: 80vh; /* Set a maximum height, you can adjust this value */
-    overflow-y: auto; /* Enable scrolling when content exceeds max-height */
+    max-height: 80vh; 
+    overflow-y: auto; 
+}
+.fc::-webkit-scrollbar{
+  width: 0px;
 }
   
-  /* Optional: If you want the calendar to take up less space on smaller screens, you can use media queries */
-@media (max-width: 768px) {
-  .fc {
-    max-height: 60vh; /* Adjust for smaller screens */
-  }
-}
-  
+
+
+
+
 .fc .fc-toolbar-title{
-    color: var(--green-dark-white-lightmode);
+  color: var(--green-dark-white-lightmode);
+} 
+
+.fc-theme-standard .fc-scrollgrid{
+  border-radius: 5px;
+}
+.fc th{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.fc td{
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.fc th, td, .fc-theme-standard .fc-scrollgrid{
+  border: var(--border-color-full-calendar) !important;
+}
+.fc th{
+  background-color: #abcdbb1d !important;
 }
 .fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number{
     color: var(--black-in-lightmode-white-in-darkmode);
 }
 .fc-button-primary{
-    background-color: var(--green-bgcolor-light) !important;
+    background-color: #437A6F !important;
 }
 .fc-button-primary:hover{
     background-color: #0F3028 !important;
     transition: all 0.5s ease;
 }
 .fc-col-header-cell-cushion{
+    font-weight: 400  !important;
     color: var(--color-yellow) !important;
+}
+.fc-event-title,
+.fc-scrollgrid-shrink-cushion {
+  color: var(--color-black-white) !important;  
+}
+.fc-event-time{
+  color: var(--green-color-lightmode-lightgreen-darkmode);
+}
+.fc-day-today {
+  background-color: var(--background-today) !important; 
+}
+.fc-day:hover{
+  cursor: pointer;
+  background-color: #bbbbbb31 !important;
+  transition: all 0.3s ease;
 }
 
 
-/* Add to your CSS file */
 .loader {
     border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
+    border-top: 4px solid #437A6F;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     animation: spin 2s linear infinite;
   }
   
@@ -44,6 +78,34 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+
+@media(max-width: 1120px) {
+    .fc .fc-toolbar-title{
+      font-size: 24px;
+    }
+    .fc-button-primary{
+      padding: 5px !important;
+    }
+}
   
-
-
+@media(max-width: 980px) {
+    .fc .fc-toolbar-title{
+      font-size: 20px;
+    }
+}
+  
+@media(max-width: 935px) {
+    .fc .fc-toolbar-title{
+      font-size: 17px;
+    }
+    .fc-button-primary{
+      padding: 3px !important;
+      font-size: smaller;
+    }
+}
+@media(max-width: 860px) {
+    .fc .fc-toolbar-title{
+      font-size: 14px;
+    }
+}

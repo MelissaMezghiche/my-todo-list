@@ -1,0 +1,51 @@
+.container {
+    margin-top: 2em;
+    width: 300px;
+    height: 150px;
+    position: absolute;
+  }
+  .container canvas {
+    box-shadow: none !important;
+  }
+  
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .item {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .accomplies {
+    background-color: #FDB700;
+    width: 15px;
+    height: 15px;
+  }
+
+  .encours {
+    background-color: #347064;
+    width: 15px;
+    height: 15px;
+  }
+
+  .echues {
+    background-color: #FF0000;
+    width: 15px;
+    height: 15px;
+  }
+
+  .avenir {
+    background-color: #FBDE9D;
+    width: 15px;
+    height: 15px;
+  }
+
+  

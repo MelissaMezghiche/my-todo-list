@@ -1,5 +1,3 @@
-// src/hooks/useFetchTasks.ts
-
 import { useState, useEffect } from 'react';
 
 interface Task {
@@ -7,12 +5,13 @@ interface Task {
   title: string;
   dueDate: string;
   status: 'pending' | 'completed' | 'in-progress';
-  priority: 1 | 2 | 3;
+  priority: { level: number; color: string };
+  category: { name: string; id: number };
 }
 
 interface Category {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 export function useFetchTasks() {
@@ -21,56 +20,56 @@ export function useFetchTasks() {
   const [progressTasks, setProgressTasks] = useState<Task[]>([]);
   const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
   const [todaysTasks, setTodaysTasks] = useState<Task[]>([]);
-
-  // Categories sets
   const [categories, setCategories] = useState<Category[]>([]);
 
-  useEffect(() => {
-    // Fonction pour formater la date actuelle sans l'heure
-    const getTodayDate = () => {
-      const today = new Date();
-      return new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString();
-    };
+  // Formater la date d'aujourd'hui
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().slice(0, 10); // Format 'YYYY-MM-DD'
+  };
 
-    // Fonction pour fetch les tâches et préparer les données nécessaires
+  // Fonction pour trier les tâches par priorité
+  const sortedTasks = (tasks: Task[]) =>
+    tasks.sort((a, b) => b.priority.level - a.priority.level);
+
+  // Fonction pour trier les tâches du jour par heure croissante
+  const sortTasksByTime = (tasks: Task[]) =>
+    tasks.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
+
+  // Fonction pour compter les tâches par statut dans chaque catégorie
+  const countTasksByCategory = (categoryId: number) => {
+    const pendingCount = pendingTasks.filter(task => task.category.id === categoryId).length;
+    const progressCount = progressTasks.filter(task => task.category.id === categoryId).length;
+    const completedCount = completedTasks.filter(task => task.category.id === categoryId).length;
+    return { pendingCount, progressCount, completedCount };
+  };
+
+  useEffect(() => {
+    const today = getTodayDate();
+
+    // Fonction pour récupérer les tâches
     const fetchTasks = async () => {
       try {
         const response = await fetch('/api/tasks');
         if (response.ok) {
           const data: Task[] = await response.json();
 
-          // Récupérer la date actuelle
-          const today = getTodayDate();
+          const pending = sortedTasks(data.filter(task => task.status === 'pending'));
+          const progress = sortedTasks(data.filter(task => task.status === 'in-progress'));
+          const completed = sortedTasks(data.filter(task => task.status === 'completed'));
 
-          // Filtrer les tâches "pending"
-          const pending = data.filter(task => task.status === 'pending');
+          // Filtrer les tâches dont la date d'échéance est aujourd'hui
+          const todayTasks = sortTasksByTime(
+            data.filter(
+              task => task.dueDate.slice(0, 10) === today && task.status !== 'pending'
+            )
+          );
 
-          // Trier les tâches "pending" 
-          const sortedPending = pending.sort((a, b) => b.priority - a.priority);
-
-          const progress = data.filter(task => task.status === 'in-progress');
-
-          // Trier les tâches "progress" 
-          const sortedProgress = progress.sort((a, b) => b.priority - a.priority);
-
-
-          // Filtrer les tâches "completed"
-          const completed = data.filter(task => task.status === 'completed');
-
-          // Trier les tâches "completed" 
-          const sortedCompleted = completed.sort((a, b) => b.priority - a.priority);
-
-          // Filtrer les tâches "pending" pour aujourd'hui
-          const todayTasks = pending.filter(task => {
-            const taskDate = new Date(task.dueDate);
-            return taskDate.toISOString().slice(0, 10) === today.slice(0, 10);
-          });
-
-          setTasks(data); 
-          setPendingTasks(sortedPending); 
-          setProgressTasks(sortedProgress); 
-          setCompletedTasks(sortedCompleted);
-          setTodaysTasks(todayTasks); 
+          setTasks(data);
+          setPendingTasks(pending);
+          setProgressTasks(progress);
+          setCompletedTasks(completed);
+          setTodaysTasks(todayTasks);
         } else {
           console.error('Error fetching tasks:', response.status);
         }
@@ -79,48 +78,25 @@ export function useFetchTasks() {
       }
     };
 
-
-     // Fonction pour fetch les catégories
-     /*
-     const fetchCategories = async () => {
-        try {
-          const response = await fetch('/api/categories');  // Assurez-vous que l'API pour les catégories existe
-          if (response.ok) {
-            const data: Category[] = await response.json();
-            setCategories(data);  // Mettre à jour l'état des catégories
-          } else {
-            console.error('Error fetching categories:', response.status);
-          }
-        } catch (error) {
-          console.error('Error connecting to API:', error);
+    // Fonction pour récupérer les catégories
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/categories');
+        if (response.ok) {
+          const data: Category[] = await response.json();
+          setCategories(data);
+        } else {
+          console.error('Error fetching categories:', response.status);
         }
-      };
-*/
+      } catch (error) {
+        console.error('Error connecting to API:', error);
+      }
+    };
 
-      useEffect(() => {
-        const fetchCategories = async () => {
-          try {
-            const response = await fetch('/api/categories');  // Requête à l'API
-            const data = await response.json();  // Transformation de la réponse en JSON
-      
-            // Ajoutez ici un console.log pour vérifier les données
-            console.log('Données des catégories:', data);  // Affichez les données dans la console
-      
-            // Assurez-vous que `data` contient bien un tableau et mettez-le dans l'état
-            setCategories(data);  // Mettre les catégories dans l'état (ou ajuster en fonction du format de la réponse)
-          } catch (error) {
-            console.error('Erreur lors de la récupération des catégories', error);
-          }
-        };
-        
-        fetchCategories();  // Appel de la fonction pour récupérer les catégories
-      }, []);
-      
-  
-      // Appeler les deux fonctions pour récupérer les tâches et les catégories
-      fetchTasks();
-     //fetchCategories();
-  }, []);
+    // Appeler les fonctions
+    fetchTasks(), 
+    fetchCategories();
+  }, [pendingTasks, progressTasks, completedTasks]);
 
-  return { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories };
+  return { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories, countTasksByCategory };
 }

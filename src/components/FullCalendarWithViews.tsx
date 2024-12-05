@@ -7,30 +7,28 @@ import interactionPlugin from "@fullcalendar/interaction";
 import './FullCalendarWithViews.css';
 
 interface MyCalendarProps {
-  onDateSelect: (date: string) => void;  // Callback function passed from the parent
+  onDateSelect: (date: string) => void; // Callback function passed from the parent
 }
 
 const MyCalendar: React.FC<MyCalendarProps> = ({ onDateSelect }) => {
   const calendarRef = useRef<any>(null);
-  const [events, setEvents] = useState<any[]>([]);  // Type the state as array of events
-  const [loading, setLoading] = useState<boolean>(true);  // For loading state
-  const [error, setError] = useState<string | null>(null);  // For error handling
+  const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        setLoading(true); // Start loading
+        setLoading(true);
         const response = await fetch("/api/tasks");
-        
         if (!response.ok) {
           throw new Error("Failed to fetch tasks");
         }
-
         const tasks = await response.json();
         const formattedEvents = tasks.map((task: any) => ({
           id: task.id,
           title: task.title,
-          start: task.startDate,
+          start: task.dueDate,
           end: task.dueDate,
           color: task.priority.color,
           extendedProps: {
@@ -39,18 +37,32 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ onDateSelect }) => {
             category: task.category.name,
           },
         }));
-
         setEvents(formattedEvents);
-        setLoading(false); // Stop loading
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching tasks:", error);
-        setError("Failed to load tasks."); // Set error message
-        setLoading(false); // Stop loading
+        setError("Failed to load tasks.");
+        setLoading(false);
       }
     };
 
     fetchTasks();
-  }, []); // Empty dependency array to only run once on mount
+  }, []);
+
+  // Update calendar size on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const calendarApi = calendarRef.current?.getApi();
+      if (calendarApi) {
+        calendarApi.updateSize();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleViewChange = (view: string) => {
     if (calendarRef.current) {
@@ -59,13 +71,11 @@ const MyCalendar: React.FC<MyCalendarProps> = ({ onDateSelect }) => {
   };
 
   const handleDateClick = (info: any) => {
-    onDateSelect(info.dateStr);  // Pass the selected date (ISO string)
+    onDateSelect(info.dateStr);
   };
-
 
   return (
     <div>
-      {/* Display loading or error message */}
       {loading && <div className="loader"></div>}
       {error && <div style={{ color: "red" }}>{error}</div>}
 

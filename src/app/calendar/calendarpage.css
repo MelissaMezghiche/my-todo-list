@@ -1,8 +1,11 @@
 .main-content{
-    padding: 20px 20px 20px 0px;
+    padding: 20px 20px 0px 0px;
     display: flex;
     gap: 20px;
+    transition: display 0.3s padding-left 0.3s;
 }
+
+
 .bigCalendar{
    width: 70%;
    height: fit-content;
@@ -17,10 +20,50 @@
     padding: 20px;
     border-radius: 20px;
     height: fit-content;
+    background-color: var(--elements-bg-color);
     box-shadow: var(--box-shadow);
-    background: linear-gradient(90deg, rgba(107, 184, 168, 0.384) 0%, #e7edeb 100%);
+    transition: margin-left 0.3s width 0.3s;
 }
 .Day h2{
+    color: var(--color-black-white);
     margin-bottom: 20px;
+    transition: font-size 0.3s;
+}
+
+
+
+
+
+
+@media(max-width: 1160px) {
+    .Day h2{
+        font-size: 20px;
+    }
+}
+@media(max-width: 1042px) {
+    .Day h2{
+        font-size: 18px;
+    }
+}
+
+@media(max-width: 1030px) {
+    .bigCalendar{
+        margin-left: 10px !important;
+    }
+}
+
+@media(max-width: 550px) {
+    .main-content{
+        padding-left: 20px;
+        display: block;
+    }
+    .bigCalendar{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .Day{
+        margin-left: 10px;
+        width: 70%;
+    }
 }
 

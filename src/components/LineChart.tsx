@@ -1,81 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useFetchTasks } from '../hooks/useFetchTasks'; 
+import { BarChart, Bar, XAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useFetchTasks } from '../hooks/useFetchTasks';
 
 const TaskStatsChart = () => {
-  const { pendingTasks, /*progressTasks,*/ completedTasks } = useFetchTasks(); 
+  const { pendingTasks, progressTasks, completedTasks } = useFetchTasks();
   const [chartData, setChartData] = useState<any[]>([]);
 
-  // Fonction pour formater la date sans l'heure
-  const formatDate = (date: string) => {
+  // Formate la date en "Jour Semaine Jour"
+  const formatDayLabel = (date: string | Date) => {
     const taskDate = new Date(date);
-    return taskDate.toISOString().slice(0, 10); 
+    const options: Intl.DateTimeFormatOptions = { weekday: 'short', day: 'numeric' };
+    return taskDate.toLocaleDateString('en-US', options); // "Mon 25" en anglais
   };
 
-  // Fonction pour obtenir la date du premier jour de la semaine (lundi)
-  const getStartOfWeek = (date: Date) => {
-    const day = date.getDay() || 7; // Si dimanche, retourner 7 au lieu de 0
-    date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate() - day + 1); // Ajuste la date pour revenir au lundi de la semaine
-    return date;
-  };
-
+  // Retourne les 7 derniers jours incluant aujourd'hui
   const getWeekDates = () => {
     const weekDates: string[] = [];
     const today = new Date();
-    const startOfWeek = getStartOfWeek(new Date(today));
-    
+
     for (let i = 0; i < 7; i++) {
-      const day = new Date(startOfWeek);
-      day.setDate(day.getDate() + i); // Ajoute un jour à la date de départ
-      weekDates.push(formatDate(day.toISOString())); // Ajoute chaque date au tableau 
+      const day = new Date();
+      day.setDate(today.getDate() - i);
+      weekDates.unshift(day.toISOString().slice(0, 10)); 
     }
+
     return weekDates;
   };
 
-  // Calculer les statis des tâches par jour 
   useEffect(() => {
-    const weekDates = getWeekDates(); // Récupère les dates de la semaine actuelle (lundi-dimanche)
+    const weekDates = getWeekDates();
+
     const calculateStats = () => {
       const stats = weekDates.map((day) => {
-        const pendingStats = pendingTasks.filter(task => formatDate(task.dueDate) === day).length;
-        //const progressStats = progressTasks.filter(task => formatDate(task.dueDate) === day).length;
-        const completedStats = completedTasks.filter(task => formatDate(task.dueDate) === day).length;
+        const pendingStats = pendingTasks.filter((task) => day === task.dueDate.slice(0, 10)).length;
+        const progressStats = progressTasks.filter((task) => day === task.dueDate.slice(0, 10)).length;
+        const completedStats = completedTasks.filter((task) => day === task.dueDate.slice(0, 10)).length;
 
         return {
-          day, // Jour de semaine (ex : "2024-11-27")
+          day: formatDayLabel(day),
           pending: pendingStats,
-          //inProgress: progressStats,
           completed: completedStats,
+          progress: progressStats,
         };
       });
 
-      setChartData(stats); // MAJ
+      setChartData(stats);
     };
 
     calculateStats();
-  }, [pendingTasks, /*progressTasks,*/ completedTasks]);
+  }, [pendingTasks, progressTasks, completedTasks]);
 
   return (
     <ResponsiveContainer width="100%" height="85%">
-      <LineChart
-        width={500}
-        height={300}
+      <BarChart
         data={chartData}
         margin={{
-          top: 5,
+          top: 20,
           right: 30,
           left: 20,
           bottom: 5,
         }}
       >
         <XAxis dataKey="day" />
-        <YAxis />
-        <Tooltip />
+        <Tooltip contentStyle={{ backgroundColor: '#fff', fontSize: '12px' }} cursor={{ fill: '#f0f0f0' }} />
         <Legend />
-        <Line type="monotone" dataKey="pending" stroke="var( --chart-pending)" activeDot={{ r: 8 } } strokeWidth={3}/>
-        <Line type="monotone" dataKey="completed" stroke="var( --chart-complete)"  strokeWidth={3}/>
-      </LineChart>
+        <Bar dataKey="pending" fill="#e07a5f" barSize={30} radius={[10, 10, 0, 0]} legendType="circle" />
+        <Bar dataKey="progress" fill="#f6bd60" barSize={30} radius={[10, 10, 0, 0]} legendType="circle" />
+        <Bar dataKey="completed" fill="#81b29a" barSize={30} radius={[10, 10, 0, 0]} legendType="circle" />
+      </BarChart>
     </ResponsiveContainer>
   );
 };
