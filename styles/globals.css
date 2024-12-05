@@ -25,7 +25,7 @@
   --border-color-full-calendar:1px solid rgb(227, 227, 227);
   --background-today: #fffadf;
 
-  --chart-progress:#63f5ff;
+ --chart-progress:#63f5ff;
   --title-todaystasks: #000;
   --color-calendar-dash:#000;
   --dash-status-colors: #e07a5f;
@@ -127,4 +127,63 @@ button:hover {
   cursor: pointer;
   transform: scale(1.1);
   transition: transform 0.2s ease;
+}
+ /*NOTIFICATIONS*/
+
+.Icons.active {
+  color: gold;
+}
+
+.notification-icon {
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color:var( --bg-color);
+  box-shadow : 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 20vw;
+  z-index: 10;
+  margin-top: 40px;
+  margin-right: 40px;
+  border-radius: 10px;
+  height: 40vh;
+  overflow-y: auto; 
+  scrollbar-width: thin; 
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+.dropdown-menu h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--dash-status-colors);
+}
+
+.task-item {
+  margin-top: 10px;
+  display: flex;
+  background-color: var(--gradiant-color-dark);
+  padding: 10px;
+  border-radius: 10px;
+ }
+
+.task-item p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.task-item span {
+  font-size: 14px;
+  color: var(--green-light-white-lightmode);
+  margin-left: auto;
+}
+
+.dropdown-menu p {
+  color: var(--green-light-white-lightmode);
+  font-size: 14px;
 }
