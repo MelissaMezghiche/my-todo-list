@@ -56,7 +56,7 @@ const TasksPage = () => {
   useEffect(() => { 
     const fetchTasks = async () => { 
       try { 
-        const response = await fetch('/api/tasks'); 
+        const response = await fetch('/api/add-tasks'); 
         if (!response.ok) { 
           throw new Error('Failed to fetch tasks.'); 
         } 
@@ -111,8 +111,6 @@ const TasksPage = () => {
             priorityId: parseInt(newTask.priorityId),
             startDate: newTask.startDate || new Date().toISOString(), // Add start date
             dueDate: newTask.dueDate,
-            userId: 1, // Hardcoded for now, you might want to get this dynamically later
-            status: 'Pending' // Add a default status if not provided
         };
 
         // Validate required fields before sending
@@ -122,7 +120,7 @@ const TasksPage = () => {
             return;
         }
 
-        const response = await fetch('/api/tasks', {
+        const response = await fetch('/api/add-tasks', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formattedTask),
@@ -160,7 +158,7 @@ const TasksPage = () => {
     if (!currentTask) return;
 
     try {
-      const response = await fetch(`/api/tasks/${currentTask.id}`, {
+      const response = await fetch(`/api/add-tasks/${currentTask.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -199,7 +197,7 @@ const TasksPage = () => {
 
   const handleDeleteTask = async (taskId: number) => {
     try {
-      const response = await fetch(`/api/tasks?id=${taskId}`, {
+      const response = await fetch(`/api/add-tasks?id=${taskId}`, {
         method: 'DELETE',
       });
 
