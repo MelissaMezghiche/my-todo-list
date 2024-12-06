@@ -13,9 +13,15 @@ export async function POST(request) {
             });
         }
 
+        // Determine the completed date if status is 'completed'
+        let completedDate = null;
+        if (status === "completed") {
+            completedDate = new Date(); // Set current date and time for completion
+        }
+        
         const updatedTask = await prisma.task.update({
             where: { id: taskId },
-            data: { status },
+            data: { status, completedDate },
         });
 
         return new Response(JSON.stringify(updatedTask), {

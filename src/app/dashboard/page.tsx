@@ -82,7 +82,7 @@ export default function Dashboard() {
               const { pendingCount, progressCount, completedCount } = countTasksByCategory(category.id);
               return (
                 <div className={styles.dashwork} key={category.id}>
-                  <Link href={`/calendar`} className={styles.categoryLink}>
+                  <Link href={`/taskspage`} className={styles.categoryLink}>
                     {category.name}
                   </Link>
                   <div className={styles.categorystats}>
@@ -107,7 +107,7 @@ export default function Dashboard() {
           <h2 className={styles.taskshead}>Today's Tasks</h2>
           <div className={styles.todaystasks}>
           {localTasks.length === 0 ? (
-  <Link href="/tasks" className={styles.noTasksMessageToday}>
+  <Link href="/taskspage" className={styles.noTasksMessageToday}>
     <IoAdd />
   </Link>
 ) : (

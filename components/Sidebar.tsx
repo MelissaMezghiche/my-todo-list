@@ -60,7 +60,7 @@ const Sidebar = () => {
             {isOpen && <span>Statistics</span>}
           </Link>
 
-          <Link href="/tasks" className={styles.navLink}>
+          <Link href="/taskspage" className={styles.navLink}>
             <FaTasks className={styles.icon} />
             {isOpen && <span>Tasks</span>}
           </Link>

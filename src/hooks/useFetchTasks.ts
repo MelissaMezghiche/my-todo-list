@@ -14,6 +14,12 @@ interface Category {
   name: string;
 }
 
+interface Priority {
+  level: number;
+  label: string;
+  color: string;
+}
+
 export function useFetchTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pendingTasks, setPendingTasks] = useState<Task[]>([]);
@@ -21,6 +27,8 @@ export function useFetchTasks() {
   const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
   const [todaysTasks, setTodaysTasks] = useState<Task[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  // added this
+  const [priorities, setPriorities] = useState<Priority[]>([]);
 
   // Formater la date d'aujourd'hui
   const getTodayDate = () => {
@@ -93,10 +101,24 @@ export function useFetchTasks() {
       }
     };
 
+      // added this
+    const fetchPriorities = async () => {
+      try {
+        const response = await fetch('/api/priorities');
+        if (response.ok) {
+          const data: Priority[] = await response.json();
+          setPriorities(data);
+        }
+      } catch (error) {
+        console.error('Error fetching priorities:', error);
+      }
+    };
+
+
     // Appeler les fonctions
     fetchTasks(), 
     fetchCategories();
+    fetchPriorities();
   }, [pendingTasks, progressTasks, completedTasks]);
-
-  return { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories, countTasksByCategory };
+  return { tasks, pendingTasks, progressTasks, completedTasks, todaysTasks, categories, priorities, countTasksByCategory };
 }
