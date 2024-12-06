@@ -1,3 +1,5 @@
+//app/api/add-tasks/route.js
+
 //added this
 
 import { PrismaClient } from '@prisma/client';
@@ -147,49 +149,39 @@ export async function DELETE(request) {
 
 export async function PUT(request) {
   try {
-    const {
+    const { 
       id,
-      title,
-      description,
-      startDate,
-      dueDate,
-      categoryId,
-      priorityId,
-      status,
-      userId,
+      title, 
+      categoryId, 
+      priorityId, 
+      dueDate, 
+      description = '', 
+      startDate
     } = await request.json();
 
-    if (!id) {
-      return new Response(JSON.stringify({ error: 'Task ID is required' }), {
+    if (!id || !title || !categoryId || !priorityId || !dueDate) {
+      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
         headers: { 'Content-Type': 'application/json' },
         status: 400,
       });
     }
 
-    const existingTask = await prisma.task.findUnique({ where: { id } });
-    if (!existingTask) {
-      return new Response(JSON.stringify({ error: 'Task not found' }), {
-        headers: { 'Content-Type': 'application/json' },
-        status: 404,
-      });
-    }
-
-    // Si la startDate est égale à la date actuelle, définir le statut à "in-progress"
     const currentDate = new Date();
-    const taskStartDate = new Date(startDate || existingTask.startDate);
-    const finalStatus = taskStartDate.toDateString() === currentDate.toDateString() ? 'in-progress' : status || existingTask.status;
+    const taskStartDate = startDate ? new Date(startDate) : null;
+    const finalStatus = taskStartDate && taskStartDate.toDateString() === currentDate.toDateString() 
+      ? 'in-progress' 
+      : 'pending';
 
     const updatedTask = await prisma.task.update({
       where: { id },
       data: {
-        title: title || existingTask.title,
-        description: description || existingTask.description,
-        startDate: startDate ? new Date(startDate) : existingTask.startDate,
-        dueDate: dueDate ? new Date(dueDate) : existingTask.dueDate,
-        categoryId: categoryId || existingTask.categoryId,
-        priorityId: priorityId || existingTask.priorityId,
-        status: finalStatus, // Mettre à jour avec le statut calculé
-        userId: userId || existingTask.userId,
+        title,
+        description,
+        startDate: taskStartDate ? new Date(startDate) : undefined,
+        dueDate: new Date(dueDate),
+        categoryId,
+        priorityId,
+        status: finalStatus
       },
     });
 

@@ -1,3 +1,5 @@
+//app/taskspage/page.tsx
+
 'use client'; 
 import { useState, useEffect } from 'react'; 
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'; 
@@ -106,7 +108,7 @@ const TasksPage = () => {
         // Ensure all required fields are included
         const formattedTask = {
             title: newTask.title,
-            description: newTask.description || '', // Make description optional
+            description: newTask.description || '',
             categoryId: parseInt(newTask.categoryId),
             priorityId: parseInt(newTask.priorityId),
             startDate: newTask.startDate || new Date().toISOString(), // Add start date
@@ -154,46 +156,68 @@ const TasksPage = () => {
     }
 };
 
-  const handleEditTask = async () => {
-    if (!currentTask) return;
+  // PUT WAS THERE
 
+  const handleEditTask = async () => {
     try {
-      const response = await fetch(`/api/add-tasks/${currentTask.id}`, {
+      if (!currentTask) return;
+  
+      // Validate required fields
+      if (!currentTask.title || !currentTask.categoryId || 
+          !currentTask.priorityId || !currentTask.dueDate) {
+        setError('Please fill in all required fields');
+        return;
+      }
+  
+      const formattedTask = {
+        id: currentTask.id,
+        title: currentTask.title,
+        description: currentTask.description || '',
+        categoryId: Number(currentTask.categoryId),
+        priorityId: Number(currentTask.priorityId),
+        startDate: currentTask.startDate || new Date().toISOString(),
+        dueDate: currentTask.dueDate,
+      };
+  
+      const response = await fetch('/api/add-tasks', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: currentTask.id,
-          title: currentTask.title,
-          description: currentTask.description,
-          startDate: currentTask.startDate,
-          dueDate: currentTask.dueDate,
-          categoryId: currentTask.categoryId,
-          priorityId: currentTask.priorityId,
-        }),
+        body: JSON.stringify(formattedTask),
       });
-
+  
       if (!response.ok) {
-        throw new Error('Failed to edit task.');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update task');
       }
-
+  
       const updatedTask = await response.json();
+  
+      // MAJ de la liste des taches avec les changelemts
       setTasks((prevTasks) => 
-        prevTasks.map(task => 
-          task.id === currentTask.id 
+        prevTasks.map((task) => 
+          task.id === updatedTask.id 
             ? {
                 ...updatedTask,
-                category: categories.find(c => c.id === Number(updatedTask.categoryId))?.name || 'Unknown',
-                priority: priorities.find(p => p.id === Number(updatedTask.priorityId))?.level || 'Unknown',
-              }
+                category: categories.find(c => c.id === updatedTask.categoryId)?.name || 'Unknown',
+                priority: priorities.find(p => p.id === updatedTask.priorityId)?.level || 'Unknown'
+              } 
             : task
         )
       );
+      
       setIsModalOpen(false);
       setCurrentTask(null);
+      setError(null);
     } catch (err: any) {
       console.error(err.message);
+      setError(err.message);
     }
   };
+
+
+
+
+
 
   const handleDeleteTask = async (taskId: number) => {
     try {
@@ -283,7 +307,7 @@ const TasksPage = () => {
                 <h3>{task.title}</h3>
                 <p>Category: {task.category}</p>
                 <p>Priority: {task.priority}</p>
-                <p>DueDate: {task.dueDate}</p>
+                <p>DueDate: {new Date(task.dueDate).toLocaleDateString()}</p>
                 {isEditModeActive && (
                   <div className={styles.editTaskButtonContainer}>
                     <button 
