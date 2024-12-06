@@ -31,6 +31,7 @@ const shadowPlugin = {
       chart.ctx.restore();
     },
   };
+  
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, shadowPlugin);
 

@@ -6,7 +6,7 @@
 }
 
 .chartcontainer{
-    background-color: white;
+    background-color: var(--sidebar-bg-color);
     height: 90%;
     width: 85%;
     margin: 10px;
@@ -22,11 +22,13 @@
     flex-direction: column;
     gap: 2em;
     height: fit-content;
-    margin: 2%;
+    margin: auto;
+    text-align: center;
 }
 
 .button {
     color: black;
+    margin: auto;
     background-color: #437A6F;
     height: 30px;
     width: 75px;
@@ -35,6 +37,8 @@
     border: none;
     transition: background-color 0.3s ease;
     align-items: center;
+    text-align: center;
+    font-weight: 500;
     margin: auto;
 }
 
@@ -45,6 +49,7 @@
 
 .selectedButton {
     color: black;
+    font-weight: 500;
     background-color: #ABCDBB;
     height: 30px;
     width: 75px;

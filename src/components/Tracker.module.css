@@ -43,6 +43,7 @@
 .tableRow {
   position: relative; /* Nécessaire pour ajouter une pseudo-bordure */
   margin: 5px;
+  color: var(--green-dark-white-lightmode);
 }
 
 .tableRow::after {
@@ -60,7 +61,7 @@
 .tableHeader,
 .tableCell {
   text-align: center;
-  border: solid #f8fafb 5px;
+  border: solid var(--bg-color:#F8FAFB) 2px;
   border-radius: 14px;
   font-size: 16px;
 }
@@ -68,10 +69,11 @@
 .tableCell {
   width: 50px;
   padding: 20px 50px;
+  margin: 10px;
 }
 
 .tableHeader {
-  color: black;
+  color: var(--green-dark-white-lightmode);
 }
 
 .day {
@@ -79,7 +81,7 @@
 }
 
 .none {
-  background-color: #e8e8e8;
+  background-color: var(--none-tracker);
 }
 
 .low {
@@ -88,42 +90,9 @@
 
 .medium {
   background-color: #347064; /* Vert foncé */
-  color: #fff;
 }
 
 .high {
   background-color: #FDB700; /* Orange */
-  color: #000;
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
-  .table {
-    font-size: 14px; /* Réduit la taille de police sur les petits écrans */
-  }
-
-  .tableCell {
-    padding: 10px; /* Réduit le padding pour économiser de l'espace */
-  }
-
-  .tableRow {
-    display: block; /* Transforme chaque ligne en bloc pour une lecture plus facile */
-    margin-bottom: 10px; /* Ajoute de l'espace entre les lignes */
-  }
-
-  .tableHeader,
-  .tableCell {
-    display: block;
-    width: 100%; /* Chaque cellule occupe toute la largeur disponible */
-    text-align: left; /* Aligne le texte à gauche pour plus de lisibilité */
-  }
-
-  .tableRow::after {
-    content: none; /* Retire la bordure de ligne pour éviter les chevauchements */
-  }
-  
-  .legend {
-    flex-direction: column; /* Empile les éléments de légende sur les petits écrans */
-    align-items: flex-start; /* Aligne les éléments de légende à gauche */
-  }
-}

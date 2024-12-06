@@ -68,6 +68,7 @@ const PieChart: React.FC = () => {
           },
           padding: 15,
           boxWidth: 20,
+          color: 'var(--legend-stat)',
         },
         align: 'center',
       },
@@ -111,8 +112,8 @@ const PieChart: React.FC = () => {
             fontSize: '16px',
           }}
         >
-        <div style={{ fontWeight: 'bold', fontSize: '40px', top:'-15px' }}>{totalTasks}</div>
-        <div style={{ fontSize: '14px', color: '#666' }}>Tâches totales</div>
+        <div style={{ fontWeight: 'bold', fontSize: '40px', top:'-15px', color: 'var(--legend-stat)' }}>{totalTasks}</div>
+        <div style={{ fontSize: '14px', color: 'var(--legend-stat)' }}>Tâches totales</div>
       </div>
     </div>
   );

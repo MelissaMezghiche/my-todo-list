@@ -30,6 +30,11 @@
   --color-calendar-dash:#000;
   --dash-status-colors: #e07a5f;
   --dash-status-title:#000;
+
+  --legend-stat: #666;
+  --chart-acc: #347064;
+  --chart-exp: #ABCDBB;
+  --none-tracker: #cad2d2c0;
 }
 
 [data-theme="dark"] {
@@ -60,6 +65,11 @@
   --color-calendar-dash:#fff;
   --dash-status-colors: #f6bd60;
   --dash-status-title:#fff;
+  --legend-stat: white;
+  --chart-acc: #FDB700;
+  --chart-exp: #347064;
+  --none-tracker: #06302C;
+
 }
 
 

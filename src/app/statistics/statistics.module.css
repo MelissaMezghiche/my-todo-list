@@ -1,7 +1,7 @@
 .chartcontainer {
   position: relative;
   width: 100%;
-  background-color: white;
+  background-color: var(--sidebar-bg-color);
   color: #437A6F;
   border-radius: 20px;
   box-shadow: 30px 47px 192px -48px rgba(0,0,0,0.48);
@@ -18,7 +18,7 @@
   position: relative;
   width: 350px;
   height: 280px;
-  background-color: white;
+  background-color: var(--sidebar-bg-color);
   border-radius: 17px;
   box-shadow: 36px 22px 95px -4px rgba(0,0,0,0.28);
   -webkit-box-shadow: 36px 22px 95px -4px rgba(0,0,0,0.28);

@@ -14,10 +14,11 @@
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
     margin-top: 10px;
+    color: var(--black-in-lightmode-white-in-darkmode);
   }
 
   .item {
-    color: black;
+    color: var(--black-in-lightmode-white-in-darkmode);
     display: flex;
     justify-content: center;
     align-items: center;
