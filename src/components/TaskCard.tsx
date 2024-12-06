@@ -25,7 +25,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ tasks, onTaskStatusChange }) => {
     
     try {
       // Toggle the status between "pending" and "completed"
-      const newStatus = currentStatus === "pending" ? "completed" : "pending";
+      const newStatus = currentStatus === "completed"
+        ? "pending" 
+        : currentStatus === "in-progress"
+        ? "completed"
+        : "completed"
+      ;
 
       const response = await fetch('/api/update-task-status', {
         method: 'POST',

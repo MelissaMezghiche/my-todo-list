@@ -3,10 +3,12 @@
   --bg-color:#F8FAFB;
   --elements-bg-color: #ffffff;
   --sidebar-bg-color: #ffffff;
+  --color-black-greyishWhite: #000000;
   --color-black-white: #000000;
   --green-dark-white-lightmode: #0F3028;
   --green-color-lightmode-lightgreen-darkmode: #437A6F;
   --green-light-white-lightmode: #437A6F;
+  --lightGreen-lightmode-darkGreen-darkmode: #437A6F;
   --green-color-superlight: #ABCDBB;
   --color-yellow: #FDB700;
   --work-bgcolor: #FDB700;
@@ -36,10 +38,12 @@
   --bg-color:#011313;
   --elements-bg-color: #042222;
   --sidebar-bg-color: #06302C;
+  --color-black-greyishWhite:#c6c6c6;
   --color-black-white: #ffffff;
   --green-color-lightmode-lightgreen-darkmode: #ABCDBB;
   --green-dark-white-lightmode: #ffffff;
   --green-light-white-lightmode: #ffffff;
+  --lightGreen-lightmode-darkGreen-darkmode: #042222;
   --green-color-superlight: #ABCDBB;
   --color-yellow: #FDB700;
   --box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.2), 0px 0px 15px 0px rgba(0, 0, 0, 0.25);

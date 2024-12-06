@@ -215,13 +215,13 @@ const TasksPage = () => {
   };
 
 
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState<boolean>(false);
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const handleDeleteTask = async () => {
+    if (!taskToDelete) return;
 
-
-
-
-  const handleDeleteTask = async (taskId: number) => {
     try {
-      const response = await fetch(`/api/add-tasks?id=${taskId}`, {
+      const response = await fetch(`/api/add-tasks?id=${taskToDelete.id}`, {
         method: 'DELETE',
       });
 
@@ -229,10 +229,22 @@ const TasksPage = () => {
         throw new Error('Failed to delete task.');
       }
 
-      setTasks((prevTasks) => prevTasks.filter(task => task.id !== taskId));
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskToDelete.id));
+      setTaskToDelete(null);
+      setIsDeleteConfirmOpen(false);
     } catch (err: any) {
       console.error(err.message);
     }
+  };
+
+  const openDeleteConfirm = (task: Task) => {
+    setTaskToDelete(task);
+    setIsDeleteConfirmOpen(true);
+  };
+
+  const closeDeleteConfirm = () => {
+    setTaskToDelete(null);
+    setIsDeleteConfirmOpen(false);
   };
 
   const openEditModal = (task: Task) => {
@@ -240,12 +252,14 @@ const TasksPage = () => {
     setIsModalOpen(true);
   };
 
-  const filteredTasks = tasks.filter((task) => {
+  const filteredTasks = tasks
+  .filter((task) => {
     return (
       (selectedCategory === 'All' || task.category === selectedCategory) &&
       (selectedPriority === 'All' || task.priority === selectedPriority)
     );
-  });
+  })
+  .sort((a, b) => b.id - a.id);
 
   return (
     <div className={styles.tasksContainer}>
@@ -273,6 +287,7 @@ const TasksPage = () => {
       <div className={styles.mainContent}>
         <div className={styles.filterButtons}>
           <select 
+            className={styles.filterSelect}
             value={selectedCategory} 
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
@@ -284,6 +299,7 @@ const TasksPage = () => {
             ))}
           </select>
           <select 
+            className={styles.filterSelect}
             value={selectedPriority}
             onChange={(e) => setSelectedPriority(e.target.value)}
           >
@@ -304,25 +320,29 @@ const TasksPage = () => {
           ) : filteredTasks.length > 0 ? (
             filteredTasks.map((task) => (
               <div key={task.id} className={styles.taskCard}>
-                <h3>{task.title}</h3>
-                <p>Category: {task.category}</p>
-                <p>Priority: {task.priority}</p>
-                <p>DueDate: {new Date(task.dueDate).toLocaleDateString()}</p>
-                {isEditModeActive && (
-                  <div className={styles.editTaskButtonContainer}>
-                    <button 
-                      className={styles.editTaskButton}
-                      onClick={() => openEditModal(task)}
-                    >
-                      <FaEdit />
-                    </button>
-                  </div>
-                )}
+                <div className={styles.title_editbutton}>
+                  <h3>{task.title}</h3>
+                  {isEditModeActive && (
+                    <div className={styles.editTaskButtonContainer}>
+                      <button 
+                        className={styles.editTaskButton}
+                        onClick={() => openEditModal(task)}
+                      >
+                        <FaEdit />
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <p><span>Description :</span>  {task.description}</p>
+                <p><span>Category :</span>  {task.category}</p>
+                <p><span>Priority :</span>  {task.priority}</p>                
+                <p><span>Due date :</span>  {new Date(task.dueDate).toLocaleDateString()}</p>
+               
                 {isDeleteModeActive && (
                   <div className={styles.deleteTaskButtonContainer}>
                     <button 
                       className={styles.deleteTaskButton}
-                      onClick={() => handleDeleteTask(task.id)}
+                      onClick={() => openDeleteConfirm(task)}
                     >
                       Delete
                     </button>
@@ -344,13 +364,14 @@ const TasksPage = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <header className={styles.modalHeader}>
-              <h3>{currentTask ? 'Edit Task' : 'Add New Task'}</h3>
+              <h2>{currentTask ? 'Edit Task' : 'Add New Task'}</h2>
             </header>
             <form className={styles.modalForm}>
-            <h5 style={{ color: ' #437A6F', fontWeight: 'bold', marginBottom: '10px' }}>
+            <h5>
                 ADD YOUR TITLE
               </h5>
               <input
+                className={styles.titleInput}
                 type="text"
                 placeholder="Title"
                 value={currentTask ? currentTask.title : newTask.title}
@@ -361,11 +382,10 @@ const TasksPage = () => {
                 }
                 required
               />
-              <h5 style={{ color: ' #437A6F', fontWeight: 'bold', marginTop: '15px', marginBottom: '10px' }}>
+              <h5>
                 ADD A DESCRIPTION
               </h5>
               <textarea
-                
                 placeholder="Description"
                 value={currentTask ? currentTask.description : newTask.description}
                 onChange={(e) => 
@@ -374,63 +394,78 @@ const TasksPage = () => {
                     : setNewTask({ ...newTask, description: e.target.value })
                 }
               />
-              <h5 style={{ color: '# #437A6F', fontWeight: 'bold', marginTop: '15px', marginBottom: '10px' }}>
-                START DATE & DUE DATE
-              </h5>
               <div className={styles.dateGroup}>
-                <input
-                  type="date"
-                  value={currentTask ? currentTask.startDate : newTask.startDate}
-                  onChange={(e) => 
-                    currentTask
-                      ? setCurrentTask({...currentTask, startDate: e.target.value})
-                      : setNewTask({ ...newTask, startDate: e.target.value })
-                  }
-                />
-                <input
-                  type="date"
-                  value={currentTask ? currentTask.dueDate : newTask.dueDate}
-                  onChange={(e) => 
-                    currentTask
-                      ? setCurrentTask({...currentTask, dueDate: e.target.value})
-                      : setNewTask({ ...newTask, dueDate: e.target.value })
-                  }
-                />
+                <div className={styles.datesubGroup}>
+                  <h5>
+                    START DATE
+                  </h5>
+                  <input
+                    type="date"
+                    value={currentTask ? currentTask.startDate : newTask.startDate}
+                    onChange={(e) => 
+                      currentTask
+                        ? setCurrentTask({...currentTask, startDate: e.target.value})
+                        : setNewTask({ ...newTask, startDate: e.target.value })
+                    }
+                  />
+                </div>
+                <div className={styles.datesubGroup}>
+                  <h5>
+                    DUE DATE
+                  </h5>
+                  <input
+                    type="date"
+                    value={currentTask ? currentTask.dueDate : newTask.dueDate}
+                    onChange={(e) => 
+                      currentTask
+                        ? setCurrentTask({...currentTask, dueDate: e.target.value})
+                        : setNewTask({ ...newTask, dueDate: e.target.value })
+                    }
+                  />
+                </div>
               </div>
-              <h5 style={{ color: ' #437A6F', fontWeight: 'bold', marginTop: '15px', marginBottom: '10px' }}>
-                CATEGORY & PRIORITY
-              </h5>
+              
               <div className={styles.selectGroup}>
-                <select
-                  value={currentTask ? currentTask.categoryId : newTask.categoryId}
-                  onChange={(e) => 
-                    currentTask
-                      ? setCurrentTask({...currentTask, categoryId: Number(e.target.value)})
-                      : setNewTask({ ...newTask, categoryId: e.target.value })
-                  }
-                >
-                  <option value="">Select Category</option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-                <select
-                  value={currentTask ? currentTask.priorityId : newTask.priorityId}
-                  onChange={(e) => 
-                    currentTask
-                      ? setCurrentTask({...currentTask, priorityId: Number(e.target.value)})
-                      : setNewTask({ ...newTask, priorityId: e.target.value })
-                  }
-                >
-                  <option value="">Select Priority</option>
-                  {priorities.map((priority) => (
-                    <option key={priority.id} value={priority.id}>
-                      {priority.level}
-                    </option>
-                  ))}
-                </select>
+                <div className={styles.selectsubGroup}>
+                  <h5>
+                    CATEGORY
+                  </h5>
+                  <select
+                    value={currentTask ? currentTask.categoryId : newTask.categoryId}
+                    onChange={(e) => 
+                      currentTask
+                        ? setCurrentTask({...currentTask, categoryId: Number(e.target.value)})
+                        : setNewTask({ ...newTask, categoryId: e.target.value })
+                    }
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className={styles.selectsubGroup}>
+                  <h5 >
+                    PRIORITY
+                  </h5>
+                  <select
+                    value={currentTask ? currentTask.priorityId : newTask.priorityId}
+                    onChange={(e) => 
+                      currentTask
+                        ? setCurrentTask({...currentTask, priorityId: Number(e.target.value)})
+                        : setNewTask({ ...newTask, priorityId: e.target.value })
+                    }
+                  >
+                    <option value="">Select Priority</option>
+                    {priorities.map((priority) => (
+                      <option key={priority.id} value={priority.id}>
+                        {priority.level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className={styles.modalActions}>
@@ -462,7 +497,38 @@ const TasksPage = () => {
           </div>
         </div>
       )}
+       {/* Custom Delete Confirmation Modal */}
+       {isDeleteConfirmOpen && (
+        <div className={styles.modalOverlay} onClick={closeDeleteConfirm}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <header className={styles.modalHeader2}>
+              <h2>Delete Task ?</h2>
+            </header>
+            <p className={styles.confirmation_question}>
+              Are you sure you want to delete the task "{taskToDelete?.title}"?
+            </p>
+            <div className={styles.modalActions}>
+              <button
+                className={styles.primaryButton}
+                onClick={handleDeleteTask}
+              >
+                Delete
+              </button>
+              <button
+                className={styles.secondaryButton}
+                onClick={closeDeleteConfirm}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+
   );
 };
 
