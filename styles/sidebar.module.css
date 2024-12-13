@@ -116,7 +116,7 @@
 
 
 .sidebar.closed .icon {
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 
 .sidebar.closed .navLink {
@@ -139,7 +139,7 @@
 
 /* Changer la taille de l'icône de déconnexion lorsque la sidebar est fermée */
 .sidebar.closed .logout .icon {
-  font-size: 2rem;  /* Agrandir l'icône de déconnexion lorsque la sidebar est fermée */
+  font-size: 1.7rem;  /* Agrandir l'icône de déconnexion lorsque la sidebar est fermée */
 }
 
 /* Autres parties du CSS restent inchangées */

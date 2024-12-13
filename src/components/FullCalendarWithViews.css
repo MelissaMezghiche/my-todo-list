@@ -1,16 +1,9 @@
 
 /* Container for the calendar */
 .fc {
-    max-height: 80vh; 
-    overflow-y: auto; 
+    min-height: 80vh; 
+    overflow: auto;
 }
-.fc::-webkit-scrollbar{
-  width: 0px;
-}
-  
-
-
-
 
 .fc .fc-toolbar-title{
   color: var(--green-dark-white-lightmode);
@@ -19,10 +12,13 @@
 .fc-theme-standard .fc-scrollgrid{
   border-radius: 5px;
 }
+
 .fc th{
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  position: static !important;
 }
+
 .fc td{
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -31,38 +27,70 @@
 .fc th, td, .fc-theme-standard .fc-scrollgrid{
   border: var(--border-color-full-calendar) !important;
 }
+
 .fc th{
   background-color: #abcdbb1d !important;
 }
+
 .fc .fc-col-header-cell-cushion, .fc .fc-daygrid-day-number{
     color: var(--black-in-lightmode-white-in-darkmode);
 }
+
 .fc-button-primary{
     background-color: #437A6F !important;
 }
+
 .fc-button-primary:hover{
     background-color: #0F3028 !important;
     transition: all 0.5s ease;
 }
+
 .fc-col-header-cell-cushion{
     font-weight: 400  !important;
     color: var(--color-yellow) !important;
 }
+
 .fc-event-title,
 .fc-scrollgrid-shrink-cushion {
   color: var(--color-black-white) !important;  
 }
+
 .fc-event-time{
   color: var(--green-color-lightmode-lightgreen-darkmode);
 }
+
 .fc-day-today {
   background-color: var(--background-today) !important; 
 }
+
 .fc-day:hover{
   cursor: pointer;
   background-color: #bbbbbb31 !important;
   transition: all 0.3s ease;
 }
+
+.fc-daygrid-event {
+  width: auto; /* Ensure event width is flexible */
+  white-space: nowrap; /* Prevent event text wrapping */
+  text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+  overflow: hidden; /* Hide overflow text for a clean look */
+  display: inline-flex !important; /* Use inline-flex to keep the task details on a single line */
+}
+
+.fc-daygrid-day-frame {
+  max-height: 150px !important; /* Set maximum height */
+  overflow-y: auto !important; 
+  overflow-x: auto !important; 
+  display: block; /* Maintain consistent day cell layout */
+  white-space: nowrap !important; /* Prevent wrapping for horizontal scrolling */
+}
+
+
+.fc-daygrid-day-frame::-webkit-scrollbar{
+  height: 0px;
+  width: 0px;
+}
+
 
 
 .loader {
@@ -80,7 +108,12 @@
   }
 
 
-@media(max-width: 1120px) {
+
+
+
+
+
+  @media(max-width: 1120px) {
     .fc .fc-toolbar-title{
       font-size: 24px;
     }
@@ -104,6 +137,7 @@
       font-size: smaller;
     }
 }
+
 @media(max-width: 860px) {
     .fc .fc-toolbar-title{
       font-size: 14px;

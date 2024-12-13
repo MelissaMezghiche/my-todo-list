@@ -2,34 +2,32 @@
 .tasksContainer {
   display: flex;
   gap: 20px;
-  padding: 20px;
+  padding: 20px 20px 20px 0px;
 }
 
 /* Barre flottante à droite */
 .floatingBar {
-  left: 20px;
-  top: 100px;
-  width: 50px;
-  padding-block: 20px;
-  background-color: #f4f4f4;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 25px;
   height: 200px;
+  width: 3.2rem;
+  padding-block: 20px;
   margin-block: 25vh;
-  margin-left: -20px;
+  background-color: var(--sidebar-bg-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.floatingBar button {
+.floatingBar button, .editTaskButton {
   background-color: transparent;
-  border: none;
-  color: #437A6F;
-  border-radius: 5px;
+  color: var(--green-light-white-lightmode);
   cursor: pointer;
-  transition: background-color 0.3s;
   font-size: 18px;
+}
+.editTaskButton:hover{
+  background-color: transparent;
+  transform: scale(1.1);
 }
 
 .floatingBar button:hover {
@@ -38,8 +36,12 @@
 
 /* Contenu principal */
 .mainContent {
+  padding-inline: 20px;
   flex-grow: 1;
 }
+
+
+
 
 /* Boutons de filtre */
 .filterButtons {
@@ -49,36 +51,96 @@
   margin-bottom: 20px;
 }
 
+.filterSelect {
+  width: 15vw;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--lightGreen-lightmode-darkGreen-darkmode);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 10px;
+}
+
+.filterSelect option {
+  padding: 18px;
+}
+
+.filterSelect option:hover {
+  background-color: #ff4d4d !important;
+}
+
+
+
+.title_editbutton{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Carte de tâche */
+.taskCard {
+  background-color: var(--elements-bg-color);
+  box-shadow:  4px 4px 6px rgba(255, 255, 255, 0.2), 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.taskCard:hover {
+  transform: scale(1.03);
+}
+
 /* Liste des tâches */
 .taskList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  margin-left: 40px;
-}
-
-/* Carte de tâche */
-.taskCard {
-  background-color:  #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.taskCard:hover {
-  transform: translateY(-5px);
 }
 
 .taskCard h3 {
-  margin: 0 0 10px;
-  color: #437A6F;
+  margin-bottom: 5px;
+  color: var(--green-light-white-lightmode);
 }
 
 .taskCard p {
   margin: 5px 0;
-  color: #555;
+  color: #437A6F;
 }
+
+.taskCard p span{
+  font-weight: 400;
+  padding-right: 5px;
+  /* color: #e1a100d3; */
+  color: #f6bd60;
+}
+
+
+
+
+.deleteTaskButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.deleteTaskButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s transform 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.deleteTaskButton:hover {
+  transform: scale(1.02);
+  background-color: #cf352a;
+}
+
+
 
 
 
@@ -98,58 +160,61 @@
 
 /* Modal Content */
 .modalContent {
-  background: #ffffff;
+  background: var(--sidebar-bg-color);
   border-radius: 12px;
   padding: 20px;
   width: 35vw;
-  max-width: 90%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   animation: scaleUp 0.3s ease;
   position: relative;
+  transition: width 0.3s;
+  overflow: hidden;
 }
 
 /* Modal Header */
 .modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-}
-
-.modalHeader h3 {
-  font-size: 1.25rem;
-  margin-inline: auto;
   text-align: center;
 }
-
+.modalHeader h2 {
+  color: var(--color-black-white);
+}
+.modalContent h5{
+  color: var(--green-dark-white-lightmode);
+  padding-block: 5px;
+}
 
 /* Form Styling */
 .modalForm input,
 .modalForm textarea,
 .modalForm select {
+  background-color: var(--sidebar-bg-color);
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 5px;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--green-color-lightmode-lightgreen-darkmode);
   border-radius: 8px;
-  font-size: 1rem;
+  color: var(--color-black-greyishWhite);
+  font-size: 0.9rem;
 }
-
 .modalForm textarea {
   resize: none;
   height: 80px;
 }
 
 .dateGroup {
-  display: flex;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
 }
 
-.dateGroup input {
-  flex: 1;
+
+.selectGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
 }
+
 
 /* Modal Actions */
 .modalActions {
@@ -158,34 +223,32 @@
   gap: 8px;
 }
 
-.primaryButton {
-  background-color: #4caf50;
-  color: white;
-  border: none;
+.primaryButton, .secondaryButton {
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+.primaryButton {
+  background-color: #437A6F;
+  color: white;
+  border: none;
+}
+
 .primaryButton:hover {
-  background-color: #45a045;
+  background-color: #2f554d;
 }
 
 .secondaryButton {
   background-color: #f0f0f0;
   color: #333;
   border: 1px solid #ccc;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .secondaryButton:hover {
-  background-color: #e0e0e0;
+  background-color: #b4b4b4;
 }
 
 /* Scale-Up Animation */
@@ -200,33 +263,31 @@
     opacity: 1;
   }
 }
-.deleteTaskButtonContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+
+
+
+.modalHeader2{
+  text-align: center;
+  color: var(--color-black-white);
+
+}
+.confirmation_question{
+  color: var(--color-black-greyishWhite);
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
-.deleteTaskButton {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 0.9rem;
-  width: auto;
+
+
+.errorMessage{
+  color: red;
 }
 
-.deleteTaskButton:hover {
-  background-color: #ff3333;
-}
-.selectGroup {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+
+@media(max-width: 1000px) {
+  .modalContent {
+    width: 45vw;
+  }
 }
 
-.selectGroup select {
-  flex: 1;
-}
+
