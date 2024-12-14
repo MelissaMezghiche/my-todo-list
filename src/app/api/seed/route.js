@@ -9,8 +9,8 @@ export async function GET(request) {
         if (existingCategories.length === 0) {
             await prisma.category.createMany({
                 data: [
-                    { name: 'work', color: '#F0F0F0' },
-                    { name: 'personal', color: '#D3D3D3' },
+                    { name: 'work', color: '#ffa500' },
+                    { name: 'personal', color: '#ff4500' },
                 ],
             });
         }

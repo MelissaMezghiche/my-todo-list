@@ -54,7 +54,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ tasks, onTaskStatusChange }) => {
        // Show notification
        if (newStatus === "completed") {
         setNotif_completed("Task completed"); // Set notification message
-        setTimeout(() => setNotif_completed(null), 5000); // Hide notification after 3 seconds
+        setTimeout(() => setNotif_completed(null), 5000); // Hide notification after 5 seconds
       }
 
 

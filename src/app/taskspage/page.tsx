@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'; 
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'; 
 import styles from '/styles/tasks.module.css';
+import { IoCloseSharp } from "react-icons/io5";
 
 interface Task { 
   id: number; 
@@ -43,6 +44,8 @@ const TasksPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleteModeActive, setIsDeleteModeActive] = useState<boolean>(false);
   const [isEditModeActive, setIsEditModeActive] = useState<boolean>(false);
+  const [notification, setNotification] = useState<string | null>(null);
+
 
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
 
@@ -133,6 +136,12 @@ const TasksPage = () => {
             throw new Error(errorData.error || 'Failed to add task');
         }
 
+        if (response.ok) {
+          setNotification(currentTask ? 'Task updated successfully' : 'Task added successfully');
+          setNewTask({ title: '', description: '', startDate: '', dueDate: '', categoryId: '', priorityId: '' });
+        }
+        setTimeout(() => setNotification(''), 5000);
+        
         const createdTask = await response.json();
         setTasks((prevTasks) => [...prevTasks, {
             ...createdTask,
@@ -151,6 +160,7 @@ const TasksPage = () => {
         });
         setError(null);
     } catch (err: any) {
+        setNotification('Error adding task. Please try again.');
         console.error(err.message);
         setError(err.message);
     }
@@ -261,8 +271,50 @@ const TasksPage = () => {
   })
   .sort((a, b) => b.id - a.id);
 
+
+  const formatDate = (datetime: string | null) => {
+    if (!datetime) return '';
+    return new Date(datetime).toISOString().split('T')[0];
+  };
+
+
+  const formatTime = (datetime: string | null) => {
+    if (!datetime) return '';
+    const date = new Date(datetime);
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+
+
+  const handleDateChange = (date: string, setTask: Function, task: any, key: string) => {
+    const currentDate = new Date(task[key] || new Date());
+    const [year, month, day] = date.split('-');
+    currentDate.setFullYear(Number(year), Number(month) - 1, Number(day));
+  
+    setTask({ ...task, [key]: currentDate.toISOString() });
+  };
+  
+  const handleTimeChange = (time: string, setTask: Function, task: any, key: string) => {
+    const currentDate = new Date(task[key] || new Date());
+    const [hours, minutes] = time.split(':');
+    
+    currentDate.setHours(Number(hours), Number(minutes), 0, 0);
+  
+    setTask({ ...task, [key]: currentDate.toISOString() });
+  };
+  
   return (
     <div className={styles.tasksContainer}>
+      {notification && (
+        <div className={styles.notification}>
+          <span>{notification}</span>
+          <IoCloseSharp
+            className={styles.close_notif}
+            onClick={() => setNotification(null)} // Close notification on button click
+          />
+        </div>
+      )}
       <aside className={styles.floatingBar}>
         <button className={styles.addButton} onClick={() => {
           setCurrentTask(null);
@@ -335,7 +387,8 @@ const TasksPage = () => {
                 </div>
                 <p><span>Description :</span>  {task.description}</p>
                 <p><span>Category :</span>  {task.category}</p>
-                <p><span>Priority :</span>  {task.priority}</p>                
+                <p><span>Priority :</span>  {task.priority}</p> 
+                <p><span>Status :</span> {task.status}</p>               
                 <p><span>Due date :</span>  {new Date(task.dueDate).toLocaleDateString()}</p>
                
                 {isDeleteModeActive && (
@@ -396,35 +449,63 @@ const TasksPage = () => {
               />
               <div className={styles.dateGroup}>
                 <div className={styles.datesubGroup}>
-                  <h5>
-                    START DATE
-                  </h5>
+                  <h5>START DATE</h5>
                   <input
                     type="date"
-                    value={currentTask ? currentTask.startDate : newTask.startDate}
-                    onChange={(e) => 
+                    value={formatDate(currentTask ? currentTask.startDate : newTask.startDate)}
+                    onChange={(e) =>
                       currentTask
-                        ? setCurrentTask({...currentTask, startDate: e.target.value})
-                        : setNewTask({ ...newTask, startDate: e.target.value })
+                        ? handleDateChange(e.target.value, setCurrentTask, currentTask, 'startDate')
+                        : handleDateChange(e.target.value, setNewTask, newTask, 'startDate')
                     }
                   />
                 </div>
                 <div className={styles.datesubGroup}>
-                  <h5>
-                    DUE DATE
-                  </h5>
+                  <h5>DUE DATE</h5>
                   <input
                     type="date"
-                    value={currentTask ? currentTask.dueDate : newTask.dueDate}
-                    onChange={(e) => 
+                    value={formatDate(currentTask ? currentTask.dueDate : newTask.dueDate)}
+                    onChange={(e) =>
                       currentTask
-                        ? setCurrentTask({...currentTask, dueDate: e.target.value})
-                        : setNewTask({ ...newTask, dueDate: e.target.value })
+                        ? handleDateChange(e.target.value, setCurrentTask, currentTask, 'dueDate')
+                        : handleDateChange(e.target.value, setNewTask, newTask, 'dueDate')
                     }
                   />
                 </div>
               </div>
-              
+              <div className={styles.dateGroup}>
+                <div className={styles.datesubGroup}>
+                  <h5>START TIME</h5>
+                  <input
+                    type="time"
+                    value={formatTime(currentTask ? currentTask.startDate : newTask.startDate)}
+                    onChange={(e) =>
+                      handleTimeChange(
+                        e.target.value,
+                        currentTask ? setCurrentTask : setNewTask,
+                        currentTask ? currentTask : newTask,
+                        'startDate'
+                      )
+                    }
+                  />
+                </div>
+                <div className={styles.datesubGroup}>
+                  <h5>DUE TIME</h5>
+                  <input
+                    type="time"
+                    value={formatTime(currentTask ? currentTask.dueDate : newTask.dueDate)}
+                    onChange={(e) =>
+                      handleTimeChange(
+                        e.target.value,
+                        currentTask ? setCurrentTask : setNewTask,
+                        currentTask ? currentTask : newTask,
+                        'dueDate'
+                      )
+                    }
+                  />
+                </div>
+              </div>
+
               <div className={styles.selectGroup}>
                 <div className={styles.selectsubGroup}>
                   <h5>
